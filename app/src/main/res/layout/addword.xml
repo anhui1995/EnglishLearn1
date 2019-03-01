@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:background="#F7F6ED">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="20dp"
+            android:layout_height="20dp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:ems="11"
+            android:layout_height="wrap_content"
+            android:id="@+id/addwordEditTextEnglish"
+            android:typeface="serif"/>
+
+        <Button
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:text="Button"
+            android:id="@+id/addwordButtonEmpty"/>
+
+        <Button
+            android:layout_width="65dp"
+            android:layout_height="35dp"
+            android:text="搜索"
+            android:id="@+id/addwordButtonSuch"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:background="#FFFBFD"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/addwordLinearLayoutBase">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#B2B2B2"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#F4F4F4"
+                    android:gravity="center_vertical">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="20dp"
+                        android:layout_height="28dp"/>
+
+                    <TextView
+                        android:layout_width="39dp"
+                        android:layout_height="wrap_content"
+                        android:text="音标:"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/addwordTextViewYinbiao"
+                        android:typeface="serif"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#B2B2B2"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#F4F4F4"
+                    android:gravity="center_vertical">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="20dp"
+                        android:layout_height="28dp"/>
+
+                    <TextView
+                        android:layout_width="39dp"
+                        android:layout_height="wrap_content"
+                        android:text="n:"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/addwordTextViewN"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#B2B2B2"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#F4F4F4"
+                    android:gravity="center_vertical">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="20dp"
+                        android:layout_height="28dp"/>
+
+                    <TextView
+                        android:layout_width="39dp"
+                        android:layout_height="wrap_content"
+                        android:text="v:"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/addwordTextViewV"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#B2B2B2"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#F4F4F4"
+                    android:gravity="center_vertical">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="20dp"
+                        android:layout_height="28dp"/>
+
+                    <TextView
+                        android:layout_width="39dp"
+                        android:layout_height="wrap_content"
+                        android:text="adj:"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/addwordTextViewAdj"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#B2B2B2"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#F4F4F4"
+                    android:gravity="center_vertical">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="20dp"
+                        android:layout_height="28dp"/>
+
+                    <TextView
+                        android:layout_width="39dp"
+                        android:layout_height="wrap_content"
+                        android:text="adv:"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/addwordTextViewadv"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#B2B2B2"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#F4F4F4"
+                    android:gravity="center_vertical">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="20dp"
+                        android:layout_height="28dp"/>
+
+                    <TextView
+                        android:layout_width="39dp"
+                        android:layout_height="wrap_content"
+                        android:text="other:"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/addwordTextViewOther"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#B2B2B2"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:background="#F5DDC3">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/addwordLinearLayoutBase22">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="#B2B2B2"/>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#FFFFFF"
+                        android:gravity="center_vertical">
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="20dp"
+                            android:layout_height="28dp"/>
+
+                        <TextView
+                            android:layout_width="39dp"
+                            android:layout_height="wrap_content"
+                            android:text="主词:"/>
+
+                        <EditText
+                            android:layout_width="wrap_content"
+                            android:ems="12"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/addwordEditTextMainword"
+                            android:typeface="serif"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="#B2B2B2"/>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#FFFFFF"
+                        android:gravity="center_vertical">
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="20dp"
+                            android:layout_height="28dp"/>
+
+                        <TextView
+                            android:layout_width="39dp"
+                            android:layout_height="wrap_content"
+                            android:text="单元:"/>
+
+                        <EditText
+                            android:layout_width="wrap_content"
+                            android:inputType="number"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:id="@+id/addwordEditTextUnit"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="#B2B2B2"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="80dp"
+                    android:layout_height="20dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="#E9E9E9">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加"
+            android:id="@+id/addwordButtonAdd"/>
+
+    </LinearLayout>
+</LinearLayout>
