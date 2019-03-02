@@ -97,11 +97,8 @@ public class Search extends Activity {
         viewOther= this.findViewById(R.id.searchTextViewOther);
         viewYinbiao= this.findViewById(R.id.searchTextViewYinbiao);
 
-
-
         viewEnglish = this.findViewById(R.id.searchEditTextEnglish);
         viewEnglish.addTextChangedListener(new myTextWatcher());
-       // actvWord = (AutoCompleteTextView) findViewById(R.id.seek);
 
 
         butSuch.setOnClickListener(new MyClickListener());
@@ -113,12 +110,10 @@ public class Search extends Activity {
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
         }
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-
         }
 
         @Override
