@@ -135,7 +135,6 @@ public class Search extends Activity {
         }
     }
 
-
     public class DictionaryAdapter extends CursorAdapter {
         private LayoutInflater layoutInflater;
 
