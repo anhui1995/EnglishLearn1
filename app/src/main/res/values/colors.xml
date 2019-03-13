@@ -4,6 +4,10 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
+    <color name="linearlayout_line_color">#B0DDE0</color>
+    <color name="bnbar_select">#29D3EE</color>
+    <color name="bnbar_noselect">#A0A0A0</color>
+
     <color name="devide_line">#CBCED2</color>
     <color name="blue">#499BF7</color>
     <color name="whites">#ffffff</color>

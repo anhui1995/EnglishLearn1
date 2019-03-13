@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/linearlayout_line"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/bn_dialog_lexicon_shengciben"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:drawablePadding="16dp"
+        android:gravity="center_horizontal"
+        android:padding="16dp"
+        android:text="生词本"
+        android:textColor="#666666"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/linearlayout_line_color"
+        android:orientation="vertical" />
+
+    <TextView
+        android:id="@+id/bn_dialog_lexicon_addsc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:drawablePadding="16dp"
+        android:gravity="center_horizontal"
+        android:padding="16dp"
+        android:text="添加生词"
+        android:textColor="#666666"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/linearlayout_line_color"
+        android:orientation="vertical" />
+
+    <TextView
+        android:id="@+id/bn_dialog_lexicon_quci"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:drawablePadding="16dp"
+        android:gravity="center_horizontal"
+        android:padding="16dp"
+        android:text="文章取词"
+        android:textColor="#666666"
+        android:textSize="14sp" />
+
+</LinearLayout>

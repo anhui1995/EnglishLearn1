@@ -11,6 +11,12 @@ import android.view.Window;
 import java.io.File;
 import java.sql.ResultSet;
 
+import xin.xiaoa.englishlearn.service.ELApplication;
+import xin.xiaoa.englishlearn.service.MySqlServer;
+import xin.xiaoa.englishlearn.service.SQLiteService;
+import xin.xiaoa.englishlearn.service.ToastUtil;
+import xin.xiaoa.englishlearn.test;
+
 public class MainActivity extends Activity {
 
 
@@ -135,7 +141,7 @@ public class MainActivity extends Activity {
         if (ELApplication.getSql().sqlStation()) {//登录成功
             System.out.println("登录成功");
             //getUnitWordList();
-            Intent intent2 = new Intent(mContext, WordDictationList.class);
+            Intent intent2 = new Intent(mContext, test.class);
             startActivity(intent2);
         } else {
             System.out.println("登录失败");
