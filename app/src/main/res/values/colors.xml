@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimary">#059696</color>
+    <color name="colorPrimary1">#248E9F</color>
+    <color name="colorPrimary2">#bb248E9F</color>
+    <color name="colorPrimaryDark">#059696</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="study_head">#99059696</color>
+    <color name="study_headbackup">#7733BBBB</color>
+
+    <color name="study_layout_example">#40D2D2D2</color>
 
     <color name="linearlayout_line_color">#B0DDE0</color>
-    <color name="bnbar_select">#29D3EE</color>
+    <color name="bnbar_select">#46B8CA</color>
     <color name="bnbar_noselect">#A0A0A0</color>
 
     <color name="devide_line">#CBCED2</color>

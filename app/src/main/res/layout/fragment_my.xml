@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="xin.xiaoa.englishlearn.fragment.HomePageFragment">
+    tools:context="xin.xiaoa.englishlearn.fragment_all.StudyFragment">
 
     <TextView
         android:layout_width="wrap_content"
@@ -10,6 +10,6 @@
         android:layout_centerInParent="true"
         android:textSize="20sp"
         android:textColor="#f00"
-        android:text="首页" />
+        android:text="游戏" />
 
 </RelativeLayout>

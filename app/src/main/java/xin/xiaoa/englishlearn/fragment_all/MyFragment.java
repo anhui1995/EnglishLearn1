@@ -1,4 +1,4 @@
-package xin.xiaoa.englishlearn.fragment;
+package xin.xiaoa.englishlearn.fragment_all;
 
 
 import android.os.Bundle;
@@ -9,13 +9,14 @@ import android.view.ViewGroup;
 
 import xin.xiaoa.englishlearn.R;
 
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MusicFragment extends Fragment {
+public class MyFragment extends Fragment {
 
 
-    public MusicFragment() {
+    public MyFragment() {
         // Required empty public constructor
     }
 
@@ -24,7 +25,7 @@ public class MusicFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_music, container, false);
+        return inflater.inflate(R.layout.fragment_my, container, false);
     }
 
 }

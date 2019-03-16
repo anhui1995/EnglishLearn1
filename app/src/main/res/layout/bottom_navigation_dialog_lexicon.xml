@@ -5,8 +5,8 @@
     android:background="@drawable/linearlayout_line"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/bn_dialog_lexicon_shengciben"
+    <Button
+        android:id="@+id/bn_dialog_lexicon_NewWordsBook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
@@ -15,7 +15,6 @@
         android:gravity="center_horizontal"
         android:padding="16dp"
         android:text="生词本"
-        android:textColor="#666666"
         android:textSize="14sp" />
 
     <LinearLayout
@@ -24,8 +23,8 @@
         android:background="@color/linearlayout_line_color"
         android:orientation="vertical" />
 
-    <TextView
-        android:id="@+id/bn_dialog_lexicon_addsc"
+    <Button
+        android:id="@+id/bn_dialog_lexicon_AddNewWords"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
@@ -34,7 +33,6 @@
         android:gravity="center_horizontal"
         android:padding="16dp"
         android:text="添加生词"
-        android:textColor="#666666"
         android:textSize="14sp" />
 
     <LinearLayout
@@ -43,8 +41,8 @@
         android:background="@color/linearlayout_line_color"
         android:orientation="vertical" />
 
-    <TextView
-        android:id="@+id/bn_dialog_lexicon_quci"
+    <Button
+        android:id="@+id/bn_dialog_lexicon_Article2Words"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
@@ -53,7 +51,6 @@
         android:gravity="center_horizontal"
         android:padding="16dp"
         android:text="文章取词"
-        android:textColor="#666666"
         android:textSize="14sp" />
 
 </LinearLayout>

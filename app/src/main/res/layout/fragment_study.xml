@@ -1,0 +1,238 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/study_Layout_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants"
+    tools:context="xin.xiaoa.englishlearn.fragment_all.StudyFragment">
+
+    <LinearLayout
+        android:id="@+id/study_Layout_fayin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/study_head_background"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/study_textview_english"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="English"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:typeface="serif" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/study_textview_fayin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="yinbiao"
+                android:textColor="@color/result_view"
+                android:textSize="16sp"
+                android:typeface="serif" />
+
+            <ImageButton
+                android:id="@+id/notificationplayandpause"
+                android:layout_width="wrap_content"
+                android:layout_height="18dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="2dp"
+                android:adjustViewBounds="true"
+                android:background="#00000000"
+                android:scaleType="fitCenter"
+                android:src="@drawable/study_fayin" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/study_layout_mean"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/study_Layout_fayin"
+        android:background="@color/whites">
+
+
+        <ListView
+            android:id="@+id/study_lv_mean"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="@color/study_head"
+            android:divider="@null"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp" />
+
+        <LinearLayout
+            android:id="@+id/layout_example"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/study_lv_mean"
+            android:background="@color/study_layout_example"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            android:paddingTop="7dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="7dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="例句"
+                android:textColor="@color/black"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+
+        <ListView
+            android:id="@+id/study_lv_example"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@+id/study_other_dic"
+            android:layout_below="@+id/layout_example"
+            android:layout_margin="7dp" />
+
+
+        <LinearLayout
+            android:id="@+id/study_other_dic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/linearLayoutOther"
+            android:background="@color/study_layout_example"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            android:paddingTop="7dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="7dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="其他词典"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linearLayoutOther"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/linearLayoutBottom"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/study_button_youdao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="有道" />
+
+            <Button
+                android:id="@+id/study_button_google"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="谷歌" />
+
+            <Button
+                android:id="@+id/study_button_jinshan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="金山词霸" />
+
+            <Button
+                android:id="@+id/study_button_baidu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="百度" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutBottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="3dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/study_button_know"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/study_1_bt_shape"
+                android:text="认识"
+                android:textColor="@color/whites"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/study_button_vague"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/study_2_bt_shape"
+                android:text="模糊"
+                android:textColor="@color/whites"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/study_button_forget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/study_3_bt_shape"
+                android:text="忘记"
+                android:textColor="@color/whites"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/study_layout_cover"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/study_Layout_fayin"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/itemMusicAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:text="思考单词发音以及中文意思"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/itemMusicName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="点击屏幕显示答案"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</RelativeLayout>
