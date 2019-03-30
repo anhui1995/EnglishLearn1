@@ -140,7 +140,7 @@ public class LaunchActivity extends Activity {
         if (ELApplication.getSql().sqlStation()) {//登录成功
             System.out.println("登录成功");
             //getUnitWordList();
-            Intent intent2 = new Intent(mContext, MainActivity.class);
+            Intent intent2 = new Intent(mContext, BottomNavigationBarActivity.class);
             startActivity(intent2);
         } else {
             System.out.println("登录失败");

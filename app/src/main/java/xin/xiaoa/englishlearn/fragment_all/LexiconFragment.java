@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
@@ -28,6 +29,9 @@ public class LexiconFragment extends Fragment {
     View view;
     MyExpandableListViewAdapter myExpandableListViewAdapter;
     Context context;
+    Button butAllWord;
+    Button butNewWord;
+    Button butSpecialWord;
     List<GroupsItem> groupsLists;
     @SuppressLint("ValidFragment")
     public LexiconFragment(Context cont) {
@@ -64,6 +68,15 @@ public class LexiconFragment extends Fragment {
         groupsLists = init();
         myExpandableListViewAdapter = new MyExpandableListViewAdapter(context,groupsLists);
         expandableListView.setAdapter(myExpandableListViewAdapter);
+
+        butAllWord = view.findViewById(R.id.lexicon_all_word);
+        butNewWord = view.findViewById(R.id.lexicon_new_word);
+        butSpecialWord = view.findViewById(R.id.lexicon_special_word);
+
+        butAllWord.setOnClickListener(new MyClickListener());
+        butNewWord.setOnClickListener(new MyClickListener());
+        butSpecialWord.setOnClickListener(new MyClickListener());
+
         return view;
     }
 
@@ -76,12 +89,62 @@ public class LexiconFragment extends Fragment {
         }
     }
 
+    void funAllWord(){}
+    void funNewWord(){}
+    void funSpecialWord(){}
+
+    class MyClickListener implements View.OnClickListener {
+
+        public void onClick(View arg0) {
+            switch (arg0.getId()) {
+                case R.id.lexicon_all_word:
+                    funAllWord();break;
+                case R.id.lexicon_new_word:
+                    funNewWord();break;
+                case R.id.lexicon_special_word:
+                    funSpecialWord();break;
+            }
+        }
+    }
+
     List<GroupsItem> init(){
         List<GroupsItem> groupsLists= new ArrayList<>();
         List<ChildsItem> childsLists;
         ChildsItem childsItem;
         GroupsItem groupsItem;
 
+        groupsItem = new GroupsItem();
+        groupsItem.setStrName("个人词库");
+        childsLists= new ArrayList<>();
+
+        childsItem = new ChildsItem();
+        childsItem.setName("个人词库一");
+        childsItem.setContent("一");
+        childsLists.add(childsItem);
+
+        childsItem = new ChildsItem();
+        childsItem.setName("个人词库二");
+        childsItem.setContent("二");
+        childsLists.add(childsItem);
+
+        childsItem = new ChildsItem();
+        childsItem.setName("个人词库三");
+        childsItem.setContent("三");
+        childsLists.add(childsItem);
+
+        childsItem = new ChildsItem();
+        childsItem.setName("个人词库四");
+        childsItem.setContent("四");
+        childsLists.add(childsItem);
+
+        childsItem = new ChildsItem();
+        childsItem.setName("个人词库五");
+        childsItem.setContent("五");
+        childsLists.add(childsItem);
+
+        groupsItem.setChilds(childsLists);
+        groupsLists.add(groupsItem);
+        //##########################################################################################
         groupsItem = new GroupsItem();
         groupsItem.setStrName("大学");
         childsLists= new ArrayList<>();

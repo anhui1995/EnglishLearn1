@@ -28,10 +28,11 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationBar.OnTabSelectedListener, ViewPager.OnPageChangeListener {
+public class BottomNavigationBarActivity extends AppCompatActivity implements BottomNavigationBar.OnTabSelectedListener, ViewPager.OnPageChangeListener {
 
     private ViewPager viewPager;
     private BottomNavigationBar bottomNavigationBar;
+    AppCompatActivity appCompatActivity;
     //private BadgeItem badgeItem; //添加角标
     private List<Fragment> mList; //ViewPager的数据源
 //    MyItemLongListener myItemLongListener;
@@ -39,9 +40,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
-        setContentView(R.layout.test);
+        setContentView(R.layout.bottomnavigationbar);
         initBottomNavigationBar();
         setBottomNavigationItem(bottomNavigationBar, 0, 29, 13);
+
+        appCompatActivity = this;
         initViewPager();
 
     }
@@ -51,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
         mList = new ArrayList<>();
         mList.add(new StudyFragment(this));
         mList.add(new LexiconFragment(this));
-        mList.add(new OtherFragment());
+        mList.add(new OtherFragment(this,appCompatActivity));
         mList.add(new MyFragment());
 
         viewPager = findViewById(R.id.viewPager);

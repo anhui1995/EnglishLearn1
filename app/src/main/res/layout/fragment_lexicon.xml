@@ -4,12 +4,70 @@
     android:layout_height="match_parent"
     tools:context="xin.xiaoa.englishlearn.fragment_all.StudyFragment">
 
+    <LinearLayout
+        android:id="@+id/lexicon_top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+        android:paddingLeft="5dp"
+        android:paddingTop="12dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="15dp">
+
+        <Button
+            android:id="@+id/lexicon_all_word"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/lexicon_ex_lv_item_group_bg"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="10dp"
+            android:text="所有单词 "
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/lexicon_special_word"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/lexicon_ex_lv_item_group_bg"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="10dp"
+            android:text="特殊单词"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/lexicon_new_word"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/lexicon_ex_lv_item_group_bg"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="10dp"
+            android:text="生词本"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+
     <ExpandableListView
         android:id="@+id/lexicon_ExpandableListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/lexicon_top_layout"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" />
-
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/lexicon_ex_lv_bg"
+        android:divider="@null" />
 </RelativeLayout>

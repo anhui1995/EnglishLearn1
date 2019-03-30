@@ -184,7 +184,7 @@ public class WordDictationActivity extends Activity {
                 wordDictationListItem.setFayin(rsList.getString("fayin"));
                 wordDictationListItem.setYinbiao((rsList.getString("yinbiao")));
                 wordDictationListItem.setEnglish(rsList.getString("english"));
-                //System.out.println(sqlResultSet.getString("english"));
+                //System.out.println(sqlResultSet.getChinese("english"));
                 Lists.add(wordDictationListItem);
 
             }
@@ -215,7 +215,7 @@ public class WordDictationActivity extends Activity {
             while (rsList1.next()) {
 
                 unitListItem = new UnitListItem();
-                //System.out.println("第几单元"+rsList1.getString("unit"));
+                //System.out.println("第几单元"+rsList1.getChinese("unit"));
                 unitListItem.setId(rsList1.getString("unit"));
                 unitList.add(unitListItem);
 

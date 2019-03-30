@@ -262,7 +262,7 @@ public class AddWordActivity extends Activity {
 
             if(sqlResultSet.next()) {
                 wordId= sqlResultSet.getInt("id");
-                //viewEnglish.setText(sqlResultSet.getString("english"));
+                //viewEnglish.setText(sqlResultSet.getChinese("english"));
                 viewN.setText(sqlResultSet.getString("n"));
                 viewV.setText(sqlResultSet.getString("v"));
                 viewAdj.setText(sqlResultSet.getString("adj"));
