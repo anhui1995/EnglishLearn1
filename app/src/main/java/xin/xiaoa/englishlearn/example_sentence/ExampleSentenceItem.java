@@ -1,8 +1,17 @@
-package xin.xiaoa.englishlearn.fragment_study;
+package xin.xiaoa.englishlearn.example_sentence;
 
-public class StudyExampleItem {
+public class ExampleSentenceItem {
     private String strEnglish;
     private String strChinese;
+
+    public ExampleSentenceItem(String strEnglish, String strChinese) {
+        this.strEnglish = strEnglish;
+        this.strChinese = strChinese;
+    }
+
+    public ExampleSentenceItem() {
+
+    }
 
     public String getStrEnglish() {
         return strEnglish;

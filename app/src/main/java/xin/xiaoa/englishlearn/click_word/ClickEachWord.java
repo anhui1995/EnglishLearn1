@@ -1,4 +1,4 @@
-package xin.xiaoa.englishlearn.service;
+package xin.xiaoa.englishlearn.click_word;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.text.Spannable;
 import android.text.TextPaint;
-import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xin.xiaoa.englishlearn.R;
+import xin.xiaoa.englishlearn.service.PlayEnglish;
 
 public class ClickEachWord {
     private Context context;
@@ -103,7 +103,7 @@ public class ClickEachWord {
                             .getText()
                             .subSequence(tv.getSelectionStart(),
                                     tv.getSelectionEnd()).toString();
-                    //dialog(s);
+                   // dialog(s);
                 }
                 catch (Exception e){
                     System.out.println("点击文字ERR:"+e);
@@ -163,8 +163,8 @@ public class ClickEachWord {
     void getWordMean(final String word){
         new Thread() {
             public void run() {
-                WordQuery wordQuery = new WordQuery(context);
-                wordItem = wordQuery.such(word);
+                WordMean wordMean = new WordMean(context);
+                wordItem = wordMean.such(word);
                 handler.sendEmptyMessage(1);
             }
         }.start();

@@ -1,6 +1,5 @@
-package xin.xiaoa.englishlearn.service;
+package xin.xiaoa.englishlearn.click_word;
 
-import android.graphics.Color;
 import android.text.Layout;
 import android.text.Selection;
 import android.text.Spannable;
@@ -18,19 +17,19 @@ public class MyLinkMovementMethod  extends LinkMovementMethod {
     @Override
     public boolean onTouchEvent(TextView widget, Spannable buffer, MotionEvent event) {
 
-        //System.out.println("123456789087654321457890");
+        System.out.println("123456789087654321457890");
 
         if(isDown){
            // widget.setTextColor(Color.YELLOW);
            /// widget.select
         }
 
+
+
         int action = event.getAction();
         if (action == MotionEvent.ACTION_UP ||
                 action == MotionEvent.ACTION_DOWN) {
 
-
-            System.out.println("所有文章："+ widget.getText().toString());
             int x = (int) event.getX();
             int y = (int) event.getY();
 
@@ -45,39 +44,38 @@ public class MyLinkMovementMethod  extends LinkMovementMethod {
             int off = layout.getOffsetForHorizontal(line, x);
 
             LongClickableSpan[] link = buffer.getSpans(off, off, LongClickableSpan.class);
+
             if (link.length != 0) {
 
-                if (action == MotionEvent.ACTION_UP) {
+            if (action == MotionEvent.ACTION_UP) {
 
                     //long tmp = System.currentTimeMillis() - lastClickTime;
 
-                    //System.out.println("时间："+ tmp);
                     if (System.currentTimeMillis() - lastClickTime < CLICK_DELAY) {
-//                        Log.e("test", "点击");
-                        //点击事件
-                        link[0].onClick(widget);
+            //                        Log.e("test", "点击");
+                    //点击事件
+                    link[0].onClick(widget);
 
                     } else {
-//                        Log.e("test", "长按");
-                        //长按事件
-
+            //                        Log.e("test", "长按");
+                    //长按事件
 
                         String s = widget
-                                .getText()
-                                .subSequence(widget.getSelectionStart(),
-                                        widget.getSelectionEnd()).toString();
+                        .getText()
+                        .subSequence(widget.getSelectionStart(),
+                        widget.getSelectionEnd()).toString();
 
                         link[0].onLongClick(s);
 
                     }
 
-                } else if (action == MotionEvent.ACTION_DOWN) {
-                    Selection.setSelection(buffer,
-                            buffer.getSpanStart(link[0]),
-                            buffer.getSpanEnd(link[0]));
-                    isDown = true;
-                    lastClickTime = System.currentTimeMillis();
-                }
+        } else if (action == MotionEvent.ACTION_DOWN) {
+        Selection.setSelection(buffer,
+        buffer.getSpanStart(link[0]),
+        buffer.getSpanEnd(link[0]));
+        isDown = true;
+        lastClickTime = System.currentTimeMillis();
+        }
 
                 return true;
             } else {
@@ -97,3 +95,48 @@ public class MyLinkMovementMethod  extends LinkMovementMethod {
     }
 
 }
+
+
+//            if (action == MotionEvent.ACTION_UP) {
+//
+//                    //long tmp = System.currentTimeMillis() - lastClickTime;
+//
+//                    if (System.currentTimeMillis() - lastClickTime < CLICK_DELAY) {
+////                        Log.e("test", "点击");
+//        //点击事件
+//        link[0].onClick(widget);
+//
+//        } else {
+////                        Log.e("test", "长按");
+//        //长按事件
+//
+//        String s = widget
+//        .getText()
+//        .subSequence(widget.getSelectionStart(),
+//        widget.getSelectionEnd()).toString();
+//
+//        link[0].onLongClick(s);
+//
+//        }
+//
+//        } else if (action == MotionEvent.ACTION_DOWN) {
+//        Selection.setSelection(buffer,
+//        buffer.getSpanStart(link[0]),
+//        buffer.getSpanEnd(link[0]));
+//        isDown = true;
+//        lastClickTime = System.currentTimeMillis();
+//        }
+//
+
+
+
+
+
+
+
+
+
+
+
+
+

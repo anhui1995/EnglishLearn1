@@ -2,27 +2,17 @@ package xin.xiaoa.englishlearn.fragment_other;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
-import android.text.Spannable;
 import android.text.SpannableStringBuilder;
-import android.text.TextPaint;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
-import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import xin.xiaoa.englishlearn.R;
-import xin.xiaoa.englishlearn.service.ClickEachWord;
-import xin.xiaoa.englishlearn.service.MyLinkMovementMethod;
+import xin.xiaoa.englishlearn.click_word.ClickEachWord;
 
 public class OtherExampleFragment extends Fragment {
     String text1 = "In 1972 Thomas Kuhn hurled an ashtray at Errol Morris. Already renowned" +

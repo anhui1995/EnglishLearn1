@@ -1,10 +1,8 @@
-package xin.xiaoa.englishlearn.service;
+package xin.xiaoa.englishlearn.click_word;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Handler;
-import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -18,7 +16,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.ResultSet;
 
-public class WordQuery {
+import xin.xiaoa.englishlearn.service.ELApplication;
+
+public class WordMean {
 
 
 
@@ -29,7 +29,7 @@ public class WordQuery {
     private WordItem wordItem = null;
     private String word;
 
-    public WordQuery(Context context) {
+    public WordMean(Context context) {
         this.context = context;
     }
 

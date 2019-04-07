@@ -1,4 +1,4 @@
-package xin.xiaoa.englishlearn.service;
+package xin.xiaoa.englishlearn.click_word;
 
 public class ClickWordListItem {
     private String key;
