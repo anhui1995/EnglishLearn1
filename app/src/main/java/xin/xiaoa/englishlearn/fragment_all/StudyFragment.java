@@ -66,10 +66,9 @@ public class StudyFragment extends Fragment {
     StudyMeanListAdapter studyMeanListAdapter;
     StudyWordMeaningItem studyWordMeaningItem;
 
-//    ExampleSentenceAdapter exampleSentenceAdapter;
     ExampleSentenceItem exampleSentenceItem;
 
-
+    ResultSet sqlResultSet;
     String playEnglishName;
     String playFayinStr;
 
@@ -91,6 +90,9 @@ public class StudyFragment extends Fragment {
                 case 3:
                     showToast(strShow);
                     break;
+                case 4:
+                    showExample();
+                    break;
                 default:
                     break;
             }
@@ -102,80 +104,50 @@ public class StudyFragment extends Fragment {
 
         List<ExampleSentenceItem> exampleSentenceItemLists = new ArrayList<>();
 
-        exampleSentenceItem = new ExampleSentenceItem();
-        exampleSentenceItem.setStrChinese("不要此生匆匆过，但求每日都成长。");
-        exampleSentenceItem.setStrEnglish("Don't go through life,grow through life.");
-        exampleSentenceItemLists.add(exampleSentenceItem);
+//        exampleSentenceItem = new ExampleSentenceItem();
+//        exampleSentenceItem.setStrChinese("抱最好的希望，做最坏的打算。");
+//        exampleSentenceItem.setStrEnglish("Hope for the best, prepare for the worst.");
+//        exampleSentenceItemLists.add(exampleSentenceItem);
+        System.out.println("k开始解析例句");
+        try { //链接数据库 if(name.equals("admin")){
+            while(sqlResultSet.next()) {
+                System.out.println("k开始解析例句");
+                System.out.println(sqlResultSet.getString("english"));
+                exampleSentenceItem = new ExampleSentenceItem();
+                exampleSentenceItem.setStrEnglish(sqlResultSet.getString("english"));
+                exampleSentenceItem.setStrChinese(sqlResultSet.getString("chinese"));
+                exampleSentenceItemLists.add(exampleSentenceItem);
 
-        exampleSentenceItem = new ExampleSentenceItem();
-        exampleSentenceItem.setStrChinese("生活不是等待着暴风雨的过去，而是学会在雨中跳舞。");
-        exampleSentenceItem.setStrEnglish("Life is not about waiting for the storms to pass,it's about learning to dance in the rain.");
-        exampleSentenceItemLists.add(exampleSentenceItem);
-
-        exampleSentenceItem = new ExampleSentenceItem();
-        exampleSentenceItem.setStrChinese("爱是一种遇见，不能等待也不能准备。");
-        exampleSentenceItem.setStrEnglish("Love is sort of encounter.It can be neither waited nor prepared.");
-        exampleSentenceItemLists.add(exampleSentenceItem);
-
-        exampleSentenceItem = new ExampleSentenceItem();
-        exampleSentenceItem.setStrChinese("要想无可取代，必须时刻与众不同。");
-        exampleSentenceItem.setStrEnglish("In order to be irreplaceable, one must always be different.");
-        exampleSentenceItemLists.add(exampleSentenceItem);
-
-        exampleSentenceItem = new ExampleSentenceItem();
-        exampleSentenceItem.setStrChinese("我们接受有限的失望，但绝不放弃无限的希望。");
-        exampleSentenceItem.setStrEnglish("We must accept finite dissapointment ,but we never lose infinite hope.");
-        exampleSentenceItemLists.add(exampleSentenceItem);
-
-        exampleSentenceItem = new ExampleSentenceItem();
-        exampleSentenceItem.setStrChinese("我只是一朵向日葵，等待属于我的唯一的阳光。");
-        exampleSentenceItem.setStrEnglish("I'm just a sunflower, waiting for belong to me only sunshine.");
-        exampleSentenceItemLists.add(exampleSentenceItem);
-
-        exampleSentenceItem = new ExampleSentenceItem();
-        exampleSentenceItem.setStrChinese("大人的世界里没有容易二字。");
-        exampleSentenceItem.setStrEnglish("Easy doesn't enter into grown-up life.");
-        exampleSentenceItemLists.add(exampleSentenceItem);
-
-        exampleSentenceItem = new ExampleSentenceItem();
-        exampleSentenceItem.setStrChinese("我只愿他记得我当初的样子。");
-        exampleSentenceItem.setStrEnglish("I would rather he remember me the way I was.");
-        exampleSentenceItemLists.add(exampleSentenceItem);
-
-        exampleSentenceItem = new ExampleSentenceItem();
-        exampleSentenceItem.setStrChinese("当全世界都在说“放弃”的时候，希望却在耳边轻轻地说：“再试一次吧”！");
-        exampleSentenceItem.setStrEnglish("When the world says,\"Give up!\"Hope whispers,\"Try it one more time.\"");
-        exampleSentenceItemLists.add(exampleSentenceItem);
-
-        exampleSentenceItem = new ExampleSentenceItem();
-        exampleSentenceItem.setStrChinese("无所求则无所获。");
-        exampleSentenceItem.setStrEnglish("Nothing seek, nothing find.");
-        exampleSentenceItemLists.add(exampleSentenceItem);
-
-        exampleSentenceItem = new ExampleSentenceItem();
-        exampleSentenceItem.setStrChinese("今后二十年你会因为没做某事，而不是做了某事而失望。");
-        exampleSentenceItem.setStrEnglish("Twenty years from now you will be more disappointed by the things that you didn't do than by the things you did.");
-        exampleSentenceItemLists.add(exampleSentenceItem);
-
-        exampleSentenceItem = new ExampleSentenceItem();
-        exampleSentenceItem.setStrChinese("抱最好的希望，做最坏的打算。");
-        exampleSentenceItem.setStrEnglish("Hope for the best, prepare for the worst.");
-        exampleSentenceItemLists.add(exampleSentenceItem);
-
+            }
+        } catch(Exception e) { System.out.println("结果集解析问题问题"+e); }
 
         new ExampleSentenceLv(lvExample,context, exampleSentenceItemLists);
-//        exampleSentenceAdapter = new ExampleSentenceAdapter(context, exampleSentenceItemLists);
-//        lvExample.setAdapter(exampleSentenceAdapter);
+    }
+
+    void getExample(final String word){
+        new Thread(){
+            public void run(){
+                //reload();
+                try { //链接数据库 if(name.equals("admin")){
+                    if (!ELApplication.getSql().sqlStation())
+                        System.out.println("数据库连接连接已经断开。");
+                    sqlResultSet = ELApplication.getSql().sel("SELECT * FROM e_sentence WHERE word = '"+word+"'"); //查询
+                    System.out.println("已经获取结果集"+word);
+
+                } catch(Exception e) { System.out.println("结果集获取失败问题"+e); }
+                handler.sendEmptyMessage(4);
+            }
+        }.start();
     }
 
     @SuppressLint("SetTextI18n")
     void showEnglish(){
-        showExample();
+
         layoutCover.setVisibility(VISIBLE);
         layoutMean.setVisibility(INVISIBLE);
 
         allWordItem = Lists.get(index);
-
+        getExample(allWordItem.getEnglish());
         System.out.println(allWordItem.getEnglish());
 
 
