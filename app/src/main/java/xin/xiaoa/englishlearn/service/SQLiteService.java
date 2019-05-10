@@ -35,7 +35,7 @@ public class SQLiteService {
         /* 初始化并创建数据库 */
         dbHelper = new SQLiteHelper(context);
         /* 创建表 */
-       // db = dbHelper.getWritableDatabase();	//调用SQLiteHelper.OnCreate()
+        // db = dbHelper.getWritableDatabase();	//调用SQLiteHelper.OnCreate()
 
         System.err.println("建数据库");
         File file = new File(ELApplication.getRootPath()+"/word.db");
@@ -47,10 +47,8 @@ public class SQLiteService {
         } catch (Exception e) {
             System.err.println("创建数据库错误"+e);
         }
-        System.err.println("建数据库1");
         db = SQLiteDatabase.openOrCreateDatabase(file,null);
         ELApplication.setDb(db);
-        System.err.println("建数据库2");
 
         //db = dbHelper.getWritableDatabase();
 //        String TABLE_NAME = "Book";
@@ -59,21 +57,46 @@ public class SQLiteService {
 //                + " BookName VARCHAR(30)  NOT NULL,"
 //                + " Author VARCHAR(20),"
 //                + " Publisher VARCHAR(30))";
-
+        System.out.println("建立数据表");
         String TABLE_NAME = "ONLY_WORD";
         String sql = "CREATE TABLE if not exists " + TABLE_NAME
                 + "(_id INTEGER PRIMARY KEY,"
                 + " word VARCHAR(30)   NOT NULL)";
         db.execSQL(sql);
-      //  inseart();
-        System.err.println("chaxun");
-      //  select(db);
+        // 建立本地复习数据库
+
+//         sql = "DROP TABLE review";
+//        db.execSQL(sql);
+
+         sql = "CREATE TABLE if not exists review"
+                 + "(id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                 + " english VARCHAR(30) NOT NULL,"
+                 + " memoryDatabase INTEGER NOT NULL,"
+                 + " nextdate date NOT NULL)";
+        db.execSQL(sql);
+
+        sql = "CREATE TABLE if not exists word"
+                + "(id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + " english VARCHAR(30) NOT NULL,"
+                + " yinbiao VARCHAR(255) ,"
+                + " fayin VARCHAR(255) ,"
+                + " n TEXT ,"
+                + " v TEXT ,"
+                + " adj TEXT ,"
+                + " adv TEXT ,"
+                + " other TEXT )";
+        db.execSQL(sql);
+
+
+        //  inseart();
+        System.out.println("chaxun");
+        //  select(db);
     }
     void inseart(String name){
-       // dbHelper.insert("纳兰词","纳兰性德","中国文史出版社");
-      //  dbHelper.insert("离散数学","十二五","人民邮电出版社");
+        // dbHelper.insert("纳兰词","纳兰性德","中国文史出版社");
+        //  dbHelper.insert("离散数学","十二五","人民邮电出版社");
         dbHelper.myinsert(name);
-      //  System.err.println("插入数据成功");
+        //  System.err.println("插入数据成功");
     }
 
     void select(SQLiteDatabase db){
@@ -81,7 +104,7 @@ public class SQLiteService {
         cursor = dbHelper.query(args,db);
         cursor.moveToFirst();
         System.err.println("数据："+cursor.getString( cursor.getColumnIndex("word") ));
-       // dbHelper.query();
+        // dbHelper.query();
     }
 
 }

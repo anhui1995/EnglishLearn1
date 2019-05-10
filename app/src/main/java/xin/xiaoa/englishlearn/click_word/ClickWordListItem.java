@@ -24,7 +24,4 @@ public class ClickWordListItem {
         this.str = str;
     }
 
-
-
-
 }

@@ -11,6 +11,7 @@ public class ELApplication extends Application {
     private static MySqlServer sql = null;
     private static String wordPath;
     private static String rootPath;
+    private static SQLiteDatabase db;
 
     public static SQLiteDatabase getDb() {
         return db;
@@ -20,7 +21,6 @@ public class ELApplication extends Application {
         ELApplication.db = db;
     }
 
-    private static SQLiteDatabase db;
     @SuppressWarnings("unused")
     public static String getRootPath() {
         return rootPath;

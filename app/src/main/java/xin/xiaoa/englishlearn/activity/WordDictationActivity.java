@@ -34,7 +34,6 @@ import xin.xiaoa.englishlearn.worddictation.WordDictationListAdapter;
 import xin.xiaoa.englishlearn.worddictation.WordDictationListAdapter.myTextListener;
 import xin.xiaoa.englishlearn.worddictation.WordDictationListAdapter.myItemListener;
 import xin.xiaoa.englishlearn.service.ELApplication;
-import xin.xiaoa.englishlearn.service.PreferencesUtils;
 import xin.xiaoa.englishlearn.unitlist.UnitListAdapter;
 import xin.xiaoa.englishlearn.unitlist.UnitListItem;
 import xin.xiaoa.englishlearn.worddictation.WordDictationListItem;
@@ -456,7 +455,7 @@ public class WordDictationActivity extends Activity {
 
     void buttonTest() {
         Intent intent = new Intent();
-        intent.setClass(WordDictationActivity.this, SentenceTranslationActivity.class);
+        intent.setClass(WordDictationActivity.this, TestActivity.class);
         startActivity(intent);
     }
 

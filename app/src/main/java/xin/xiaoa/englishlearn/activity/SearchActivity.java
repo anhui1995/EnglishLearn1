@@ -83,10 +83,7 @@ public class SearchActivity extends Activity {
         mUserName = PreferencesUtils.getSharePreStr(this, "username");
         mPassword = PreferencesUtils.getSharePreStr(this, "pwd");
 
-        final SQLiteService sqLiteService = new SQLiteService(this);
-        System.err.println("开始SQLite");
-        sqLiteService.init();
-        db = sqLiteService.getDb();
+        db = ELApplication.getDb();
     }
 
     private void initView() {
@@ -233,9 +230,9 @@ public class SearchActivity extends Activity {
             symbols=json.getJSONArray("symbols").getJSONObject(0);
             strWord = json.getString("word_name");
             ph_en = symbols.getString("ph_en");
-           // ph_am = symbols.getString("ph_am");
+            // ph_am = symbols.getString("ph_am");
             ph_en_mp3 = symbols.getString("ph_en_mp3");
-          //  ph_am_mp3 = symbols.getString("ph_am_mp3");
+            //  ph_am_mp3 = symbols.getString("ph_am_mp3");
             parts = symbols.getJSONArray("parts");
             JSONObject jsonTmp;
             JSONArray arrMeans;
@@ -282,7 +279,6 @@ public class SearchActivity extends Activity {
             } catch(Exception e) { System.out.println("结果集获取失败问题"+e); }
             handler.sendEmptyMessage(1);
 			/*
-
 			System.out.println(" ");
 			System.out.println("单词-"+strWord);
 			System.out.println(" ");

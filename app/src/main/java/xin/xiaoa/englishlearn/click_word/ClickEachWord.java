@@ -5,7 +5,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Handler;
+import android.support.annotation.RequiresApi;
 import android.text.Spannable;
 import android.text.TextPaint;
 import android.view.LayoutInflater;
@@ -20,6 +22,8 @@ import java.util.List;
 
 import xin.xiaoa.englishlearn.R;
 import xin.xiaoa.englishlearn.service.PlayEnglish;
+
+import static android.view.View.FOCUSABLE_AUTO;
 
 public class ClickEachWord {
     private Context context;
@@ -44,11 +48,13 @@ public class ClickEachWord {
         }
     };
 
-    public ClickEachWord(Context cont,TextView tv) {
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public ClickEachWord(Context cont, TextView tv) {
         context = cont;
+
         getEachWord(tv);
         tv.setMovementMethod(MyLinkMovementMethod.getInstance());
-
+        tv.setFocusable(FOCUSABLE_AUTO);
     }
 
     public void getEachWord(TextView textView){

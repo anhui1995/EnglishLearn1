@@ -25,6 +25,14 @@ public class LaunchActivity extends Activity {
     //private LoadingDialog loadDialog;
 
 
+    void initSQLite(){
+        final SQLiteService sqLiteService = new SQLiteService(this);
+        System.err.println("开始SQLite");
+        sqLiteService.init();
+        SQLiteDatabase db = sqLiteService.getDb();
+        ELApplication.setDb(db);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         System.out.println("class_MainActivity");
@@ -54,9 +62,8 @@ public class LaunchActivity extends Activity {
     }
 
     private void init() {
-        final SQLiteService sqLiteService = new SQLiteService(this);
-        System.err.println("开始SQLite");
-        sqLiteService.init();
+
+        initSQLite();
         //getUnitWordList();
         makeRootDirectory(ELApplication.getRootPath());
         makeRootDirectory(ELApplication.getWordPath());
@@ -65,43 +72,6 @@ public class LaunchActivity extends Activity {
 
 
     }
-    void getUnitWordList() {
-        final String tableName = "ONLY_WORD";
-        new Thread() {
-            public void run() {
-                System.out.println("开始获取词库");
-
-                try {
-                    if (!ELApplication.getSql().sqlStation())
-                        System.out.println("数据库连接连接已经断开。");
-                   // rsList = ELApplication.getSql().sel("SELECT word.*,adminword.flog FROM word,adminword where adminword.word=word.english ORDER BY RAND()"); //查询
-                    rsList = ELApplication.getSql().sel("SELECT * FROM word LIMIT 10000"); //查询
-
-                } catch (Exception e) {
-                    System.out.println("获取词库问题" + e);
-                }
-                long num = 6859;
-                System.out.println("开始解析结果集");
-                try { //链接数据库 if(name.equals("admin")){
-                    while (rsList.next()) {
-
-
-                            SQLiteDatabase db = ELApplication.getDb();
-                            ContentValues cv = new ContentValues();
-                            cv.put("word", rsList.getString("english"));
-                            long row = db.insert(tableName, null, cv);
-                        num++;
-                        System.out.println(num + "单词："+rsList.getString("english"));
-
-                    }
-                } catch (Exception e) {
-                    System.out.println("结果集解析问题问题" + e);
-                }
-                System.out.println("数据库备份完成："+num);
-            }
-        }.start();
-    }
-
 
     protected void onStart() {
         super.onStart();

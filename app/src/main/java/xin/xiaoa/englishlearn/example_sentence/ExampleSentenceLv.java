@@ -9,7 +9,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import xin.xiaoa.englishlearn.R;
-import xin.xiaoa.englishlearn.worddictation.WordDictationListItem;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
@@ -29,6 +28,7 @@ public class ExampleSentenceLv {
         exampleSentenceAdapter = new ExampleSentenceAdapter(context, exampleSentenceItemLists);
         lvExample.setAdapter(exampleSentenceAdapter);
         lvExample.setOnItemClickListener(new itemClickListener());
+
     }
 
 
@@ -40,9 +40,9 @@ public class ExampleSentenceLv {
         public void onItemClick(AdapterView<?> adapter, View view, int i, long id) {
             //ExampleSentenceItem tmp = exampleSentenceItemLists.get(i);
             TextView tv = view.findViewById(R.id.study_example_item_chinese);
+            ExampleSentenceItem item = exampleSentenceItemLists.get(i);
             tv.setVisibility(tv.getVisibility()==INVISIBLE ? VISIBLE :INVISIBLE );
-
-
+            item.setVisiable(tv.getVisibility());
         }
     }
 }

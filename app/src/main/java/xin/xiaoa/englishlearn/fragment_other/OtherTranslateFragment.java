@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xin.xiaoa.englishlearn.R;
+import xin.xiaoa.englishlearn.service.PreferencesUtils;
 
 public class OtherTranslateFragment extends Fragment {
     View view;
@@ -38,11 +40,11 @@ public class OtherTranslateFragment extends Fragment {
     String toLanguage = "en";
     int leftSpinnerpos = 0;
     int rightSpinnerpos = 0;
-    TLLanguageListItem lastListItemLeft;
-    TLLanguageListItem lastListItemRight;
     Spinner spinnerLeft;
     Spinner spinnerRight;
-
+    //PreferencesUtils preferencesUtils = new PreferencesUtils();
+    ListView listView;
+    private List<TLHistoryListViewItem> lists = new ArrayList<>();
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         public void handleMessage(android.os.Message msg) {
@@ -58,6 +60,9 @@ public class OtherTranslateFragment extends Fragment {
     };
     void showEnglish() {
         textViewBot.setText(str_bot);
+        lists.add(0,new TLHistoryListViewItem(str_top,str_bot,fromLanguage,leftSpinnerpos,toLanguage,rightSpinnerpos));
+        if(lists.size()>15) lists.remove(15);
+        listView.setAdapter(new TLHistoryListViewAdapter(context,lists));
     }
     @SuppressLint("ValidFragment")
     public OtherTranslateFragment(Context con) {
@@ -77,6 +82,8 @@ public class OtherTranslateFragment extends Fragment {
 
     void translate(){
         str_top = textViewTop.getText().toString();
+        if("".equals(str_top)) return;
+        if(" ".equals(str_top)) return;
         new Thread() {
             public void run() {              //开始翻译
                 try {
@@ -107,6 +114,9 @@ public class OtherTranslateFragment extends Fragment {
 
         textViewTop = view.findViewById(R.id.other_tl_textView_top);
         textViewBot = view.findViewById(R.id.other_tl_textView_bot);
+        listView = view.findViewById(R.id.other_tl_listview);
+        listView.setOnItemClickListener(new MyOnItemClickListener());
+
     }
     void spinnerInit(){
         spinnerLeft = view.findViewById(R.id.other_tl_spinner_left);
@@ -203,14 +213,26 @@ public class OtherTranslateFragment extends Fragment {
     }
 
     class MyButtonClickListener implements View.OnClickListener{
-
         @Override
         public void onClick(View arg0) {
             translate();
-//            switch (arg0.getId()) {
-//                case R.id.other_button_article:
-//                    funButArticle();break;
-//            }
+        }
+    }
+
+
+    class MyOnItemClickListener implements AdapterView.OnItemClickListener{
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            TLHistoryListViewItem item = lists.get(position);
+            fromLanguage = item.getFromLanguage();
+            toLanguage = item.getToLanguage();
+            textViewTop.setText(item.getText());
+            spinnerLeft.setSelection(item.getFromNum());
+            spinnerRight.setSelection(item.getToNum());
+            str_bot = item.getResult();
+            lists.remove(position);
+            showEnglish();
         }
     }
 }

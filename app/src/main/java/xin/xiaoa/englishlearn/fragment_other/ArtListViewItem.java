@@ -1,13 +1,12 @@
 package xin.xiaoa.englishlearn.fragment_other;
 
-public class ARTFromListItem {
-
+public class ArtListViewItem {
     private String name;
-    private String str;
+    private String id;
 
-    public ARTFromListItem(String name, String str) {
+    public ArtListViewItem(String name, String id) {
         this.name = name;
-        this.str = str;
+        this.id = id;
     }
 
     public String getName() {
@@ -18,12 +17,11 @@ public class ARTFromListItem {
         this.name = name;
     }
 
-    public String getStr() {
-        return str;
+    public String getId() {
+        return id;
     }
 
-    public void setStr(String str) {
-        this.str = str;
+    public void setId(String id) {
+        this.id = id;
     }
-
 }

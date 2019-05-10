@@ -56,7 +56,7 @@ public class ExampleSentenceAdapter extends BaseAdapter {
             holderView.tvEnglish = arg1.findViewById(R.id.study_example_item_english);
             holderView.tvChinese = arg1.findViewById(R.id.study_example_item_chinese);
 
-            holderView.tvChinese.setVisibility(INVISIBLE);
+            holderView.tvChinese.setVisibility(entity.getVisiable());
 
             holderView.tvChinese.setText(entity.getStrChinese());
 
@@ -65,7 +65,7 @@ public class ExampleSentenceAdapter extends BaseAdapter {
    //         holderView.tvEnglish.setText(entity.getStrEnglish());
             holderView.tvEnglish.setText(entity.getStrEnglish(),TextView.BufferType.SPANNABLE);
             new ClickEachWord(context,holderView.tvEnglish);
-            holderView.tvEnglish.setFocusable(FOCUSABLE_AUTO);
+           // holderView.tvEnglish.setFocusable(FOCUSABLE_AUTO);
             arg1.setTag(holderView);
         } else {
             holderView = (ExampleSentenceAdapter.HolderView) arg1.getTag();

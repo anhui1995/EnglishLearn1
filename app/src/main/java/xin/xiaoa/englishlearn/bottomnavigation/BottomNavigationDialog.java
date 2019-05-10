@@ -16,7 +16,7 @@ import android.widget.Button;
 import xin.xiaoa.englishlearn.R;
 import xin.xiaoa.englishlearn.activity.AddWordActivity;
 import xin.xiaoa.englishlearn.activity.SearchActivity;
-import xin.xiaoa.englishlearn.activity.SentenceTranslationActivity;
+import xin.xiaoa.englishlearn.activity.TestActivity;
 import xin.xiaoa.englishlearn.bottomnavigation.util.DensityUtil;
 
 
@@ -104,7 +104,7 @@ public class BottomNavigationDialog {
     }
     private void funbutTranslate(){
         Intent intent = new Intent();
-        intent.setClass(context, SentenceTranslationActivity.class);
+        intent.setClass(context, TestActivity.class);
         context.startActivity(intent);
     }
     private void funbutExample(){

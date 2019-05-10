@@ -44,7 +44,23 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    //获取游标
+//    Cursor cursor = sqliteDatabase.query("user", new String[] { "id",
+//            "name" }, "id=?", new String[] { "1" }, null, null, null);
+
+    // 第一个参数String：表名
+    // 第二个参数String[]:要查询的列名
+    // 第三个参数String：查询条件
+    // 第四个参数String[]：查询条件的参数
+    // 第五个参数String:对查询的结果进行分组
+    // 第六个参数String：对分组的结果进行限制
+    // 第七个参数String：对查询的结果进行排序
+//    cursor = db.query("word",       // 第一个参数String：表名
+//            new String[] { "id","name" },  // 第二个参数String[]:要查询的列名
+//            "id=?",             // 第三个参数String：查询条件
+//            new String[] { "1" },          // 第四个参数String[]：查询条件的参数
+//            null,               // 第五个参数String:对查询的结果进行分组
+//            null,                 // 第六个参数String：对分组的结果进行限制
+//            "ORDER BY RAND()");  // 第七个参数String：对查询的结果进行排序
     public Cursor select() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null);

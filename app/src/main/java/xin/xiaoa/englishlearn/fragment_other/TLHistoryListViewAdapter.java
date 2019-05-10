@@ -1,6 +1,5 @@
 package xin.xiaoa.englishlearn.fragment_other;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +10,11 @@ import java.util.List;
 
 import xin.xiaoa.englishlearn.R;
 
-public class ARTFromListAdapter extends BaseAdapter {
-
+public class TLHistoryListViewAdapter extends BaseAdapter {
     private Context context;
-    private List<ARTFromListItem> lists;
+    private List<TLHistoryListViewItem> lists;
 
-    public ARTFromListAdapter(Context context, List<ARTFromListItem> lists) {
+    public TLHistoryListViewAdapter(Context context, List<TLHistoryListViewItem> lists) {
         super();
         this.context = context;
         this.lists = lists;
@@ -35,25 +33,26 @@ public class ARTFromListAdapter extends BaseAdapter {
         return arg0;
     }
 
-
-    @SuppressLint("SetTextI18n")
     @Override
     public View getView(int arg0, View arg1, ViewGroup arg2) {
 
-        HolderView holderView = null;
-        ARTFromListItem entity = lists.get(arg0);
+        TLHistoryListViewAdapter.HolderView holderView = null;
+        TLHistoryListViewItem entity = lists.get(arg0);
         if (holderView == null) {
-            holderView = new HolderView();
-            arg1 = View.inflate(context, R.layout.other_art_spinner_item, null);
-            holderView.tvId = arg1.findViewById(R.id.other_art_spi_item_textview);
+            holderView = new TLHistoryListViewAdapter.HolderView();
+            arg1 = View.inflate(context, R.layout.tl_history_lv_item, null);
+            holderView.tvText = arg1.findViewById(R.id.tl_history_lv_item_tv);
 
-            holderView.tvId.setText(entity.getName());
+
+            holderView.tvText.setText(entity.getText());
 
             arg1.setTag(holderView);
         } else {
-            holderView = (HolderView) arg1.getTag();
+            holderView = (TLHistoryListViewAdapter.HolderView) arg1.getTag();
         }
         return arg1;
+        // TODO: Implement this method
+        //return null;
     }
 
     @Override
@@ -61,7 +60,15 @@ public class ARTFromListAdapter extends BaseAdapter {
         // TODO: Implement this method
         return lists.size();
     }
+
+
+    //  UnitListItem
+
     class HolderView {
-        TextView tvId;
+        TextView tvText;
     }
+
+
 }
+
+
