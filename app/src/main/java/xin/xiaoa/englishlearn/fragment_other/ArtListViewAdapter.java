@@ -42,10 +42,11 @@ public class ArtListViewAdapter extends BaseAdapter {
         if (holderView == null) {
             holderView = new ArtListViewAdapter.HolderView();
             arg1 = View.inflate(context, R.layout.other_art_lv_item, null);
-            holderView.tvName = arg1.findViewById(R.id.other_art_lv_item_tv);
+            holderView.tvTietle = arg1.findViewById(R.id.other_art_lv_item_tv_title);
+            holderView.tvTietle.setText("《"+entity.getTitle()+"》");
 
-
-            holderView.tvName.setText("《"+entity.getName()+"》");
+            holderView.tvSubtietle = arg1.findViewById(R.id.other_art_lv_item_tv_subtitle);
+            holderView.tvSubtietle.setText("《"+entity.getSubtitle()+"》");
 
             arg1.setTag(holderView);
         } else {
@@ -66,7 +67,8 @@ public class ArtListViewAdapter extends BaseAdapter {
     //  UnitListItem
 
     class HolderView {
-        TextView tvName;
+        TextView tvTietle;
+        TextView tvSubtietle;
     }
 
 

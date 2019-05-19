@@ -10,6 +10,8 @@
 
     <color name="study_layout_example">#40D2D2D2</color>
 
+    <color name="other_spinner_item_bg_color">#B0DDE0</color>
+    <color name="other_spinner_item_line_color">#B0DDE0</color>
     <color name="linearlayout_line_color">#B0DDE0</color>
     <color name="bnbar_select">#46B8CA</color>
     <color name="bnbar_noselect">#A0A0A0</color>

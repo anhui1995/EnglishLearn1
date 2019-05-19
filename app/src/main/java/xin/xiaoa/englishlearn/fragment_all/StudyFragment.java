@@ -217,7 +217,6 @@ public class StudyFragment extends Fragment {
     @SuppressLint("SetTextI18n")
     void setNext(){
         String english = review.getNext();
-
         if("".equals(english)){
             System.out.println("今日单词复习完毕。");
             return;

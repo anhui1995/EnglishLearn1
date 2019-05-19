@@ -79,7 +79,7 @@ public class ArticleActivity extends AppCompatActivity {
             lists = new ArrayList<>();
             while(sqlResultSet.next()) {
                 lists.add(new ArticleListViewItem("title",sqlResultSet.getString("title")));
-                lists.add(new ArticleListViewItem("title",sqlResultSet.getString("subtitle")));
+                lists.add(new ArticleListViewItem("subtitle",sqlResultSet.getString("subtitle")));
                 lists.add(new ArticleListViewItem("other",sqlResultSet.getString("tip")));
                 lists.add(new ArticleListViewItem("english",sqlResultSet.getString("english")));
                 lists.add(new ArticleListViewItem("other",sqlResultSet.getString("chinese")));

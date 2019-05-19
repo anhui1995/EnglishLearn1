@@ -1,20 +1,30 @@
 package xin.xiaoa.englishlearn.fragment_other;
 
 public class ArtListViewItem {
-    private String name;
+    private String title;
+    private String subtitle;
     private String id;
 
-    public ArtListViewItem(String name, String id) {
-        this.name = name;
+    public ArtListViewItem(String title, String subtitle, String id) {
+        this.title = title;
+        this.subtitle = subtitle;
         this.id = id;
     }
-
-    public String getName() {
-        return name;
+    
+    public String getSubtitle() {
+        return subtitle;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getId() {

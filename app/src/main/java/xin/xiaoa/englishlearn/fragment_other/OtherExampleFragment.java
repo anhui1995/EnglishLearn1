@@ -2,7 +2,9 @@ package xin.xiaoa.englishlearn.fragment_other;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -44,6 +46,7 @@ public class OtherExampleFragment extends Fragment {
     }
     public OtherExampleFragment() { }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -51,6 +54,7 @@ public class OtherExampleFragment extends Fragment {
         view = inflater.inflate(R.layout.other_example_fragment, container, false);
         listView = view.findViewById(R.id.other_EG_listview);
         spinner = view.findViewById(R.id.other_EG_spinner);
+        spinner.setPopupBackgroundResource(R.drawable.other_art_spinner_bg);
         setExample();
         spinnerInit();
         return view;
