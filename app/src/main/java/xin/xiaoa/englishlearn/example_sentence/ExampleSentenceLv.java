@@ -24,16 +24,10 @@ public class ExampleSentenceLv {
         this.lvExample = lvExample;
         this.context = context;
         this.exampleSentenceItemLists = exampleSentenceItemLists;
-
         exampleSentenceAdapter = new ExampleSentenceAdapter(context, exampleSentenceItemLists);
         lvExample.setAdapter(exampleSentenceAdapter);
         lvExample.setOnItemClickListener(new itemClickListener());
-
     }
-
-
-
-
 
     class itemClickListener implements AdapterView.OnItemClickListener {
 

@@ -55,7 +55,7 @@ public class BottomNavigationBarActivity extends AppCompatActivity implements Bo
         mList.add(new StudyFragment(this));
         mList.add(new LexiconFragment(this));
         mList.add(new OtherFragment(this,appCompatActivity));
-        mList.add(new MyFragment());
+        mList.add(new MyFragment(this));
 
         viewPager = findViewById(R.id.viewPager);
         viewPager.setOffscreenPageLimit(3);

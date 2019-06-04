@@ -4,21 +4,27 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
 
 import xin.xiaoa.englishlearn.R;
 
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
+
 //为ExpandableListView自定义适配器
 public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
 
     private List<GroupsItem> groupsLists;
+    private View.OnClickListener onClickListener;
     //List<ChildsItem> childs
     private Context context;
-    public MyExpandableListViewAdapter(Context context, List<GroupsItem> groups) {
+    public MyExpandableListViewAdapter(Context context, List<GroupsItem> groups,View.OnClickListener onClickListener) {
         this.context = context;
         this.groupsLists = groups;
+        this.onClickListener = onClickListener;
     }
 
     //返回一级列表的个数
@@ -67,13 +73,27 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 
+        String name = groupsLists.get(groupPosition).getStrName();
         if (convertView == null) {
             convertView = View.inflate(context,R.layout.expandable_listview_item_group, null);
         } else {
 
         }
         TextView tv_group = convertView.findViewById(R.id.expandable_listview_item_group_textView);
-        tv_group.setText(groupsLists.get(groupPosition).getStrName());
+        tv_group.setText(name);
+
+        Button button = convertView.findViewById(R.id.expandable_listview_item_group_button);
+
+        if(groupsLists.get(groupPosition).isFirst()){
+            button.setVisibility(VISIBLE);
+            button.setFocusable(false);
+            button.setOnClickListener(onClickListener);
+        }
+        else {
+            button.setVisibility(INVISIBLE);
+        }
+
+
         return convertView;
     }
 

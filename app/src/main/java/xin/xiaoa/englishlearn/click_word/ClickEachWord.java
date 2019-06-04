@@ -10,6 +10,8 @@ import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.text.Spannable;
 import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,9 +53,8 @@ public class ClickEachWord {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public ClickEachWord(Context cont, TextView tv) {
         context = cont;
-
         getEachWord(tv);
-        tv.setMovementMethod(MyLinkMovementMethod.getInstance());
+        tv.setMovementMethod(LinkMovementMethod.getInstance());
         tv.setFocusable(FOCUSABLE_AUTO);
     }
 
@@ -65,39 +66,20 @@ public class ClickEachWord {
         int end = 0;
         // to cater last/only word loop will run equal to the length of indices.length
         for (int i = 0; i <= indices.length; i++) {
-            LongClickableSpan longClickSpan = getLongClickableSpan();
+            ClickableSpan clickSpan = getClickableSpan();
             // to cater last/only word
             end = (i < indices.length ? indices[i] : spans.length());
-            spans.setSpan(longClickSpan, start, end,
+            spans.setSpan(clickSpan, start, end,
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             start = end + 1;
         }
         //改变选中文本的高亮颜色
-        textView.setHighlightColor(Color.GREEN);
+ //       textView.setHighlightColor(Color.GREEN);
        // textView.setHintTextColor(Color.GREEN);
        // textView.setBackgroundColor(Color.GRAY);
     }
-//    private ClickableSpan getClickableSpan(){
-//        return new ClickableSpan() {
-//            @Override
-//            public void onClick(View widget) {
-//                TextView tv = (TextView) widget;
-//                String s = tv
-//                        .getText()
-//                        .subSequence(tv.getSelectionStart(),
-//                                tv.getSelectionEnd()).toString();
-//                dialog(s);
-//            }
-//            @Override
-//            public void updateDrawState(TextPaint ds) {
-//                ds.setColor(Color.BLACK);
-//                ds.setUnderlineText(false);
-//            }
-//        };
-//    }
-
-    private LongClickableSpan getLongClickableSpan(){
-        return new LongClickableSpan() {
+    private ClickableSpan getClickableSpan(){
+        return new ClickableSpan() {
 
             @Override
             public void onClick(View widget) {
@@ -109,7 +91,7 @@ public class ClickEachWord {
                             .getText()
                             .subSequence(tv.getSelectionStart(),
                                     tv.getSelectionEnd()).toString();
-                   // dialog(s);
+                    dialog(s);
                 }
                 catch (Exception e){
                     System.out.println("点击文字ERR:"+e);
@@ -117,15 +99,12 @@ public class ClickEachWord {
             }
 
             @Override
-            public void onLongClick(String click) {
-                System.out.println("长按文字okok");
-                dialog(click);
-            }
-
-            @Override
-            public void updateDrawState(TextPaint ds) {
+            public void updateDrawState(TextPaint textPaint) {
 //                ds.setColor(Color.BLUE);
 //                ds.setUnderlineText(true);
+ //              int textColor = isPressed ? pressedTextColor : normalTextColor;
+//                textPaint.setColor(textColor);
+                textPaint.bgColor = Color.TRANSPARENT;
             }
         };
     }
@@ -189,31 +168,9 @@ public class ClickEachWord {
         relativeLayout = dialogView.findViewById(R.id.click_word_dl_fayin);
         relativeLayout.setOnClickListener(new MyClickListener());
 
-
-
         getWordMean(str);
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
-                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT));
-        //listView.setLayoutParams(lp);
         AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-
-//              dialog.setIcon(R.drawable.ic_launcher);//窗口头图标
-        //dialog.setTitle(str);//窗口名s
-
         dialog.setView(dialogView);
-       // dialog.setView(listView);
-
-
-
-//        dialog.setOnDismissListener(new DialogInterface.OnDismissListener()
-//        { 	@Override
-//        public void onDismiss(DialogInterface dialog)
-//        {
-//            butf5();
-//        }
-//        });
-
         dialog.setNegativeButton("加入生词本", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which)
             {

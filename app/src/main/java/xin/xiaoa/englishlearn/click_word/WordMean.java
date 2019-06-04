@@ -34,7 +34,7 @@ public class WordMean {
     }
 
 
-    WordItem such(String wordTmp) {
+    public WordItem such(String wordTmp) {
         word = wordTmp;
         suchFlog=0;
         if(word.equals("")) {

@@ -3,6 +3,7 @@ package xin.xiaoa.englishlearn.fragment_all;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xin.xiaoa.englishlearn.R;
+import xin.xiaoa.englishlearn.activity.A2WActivity;
 import xin.xiaoa.englishlearn.fragment_lexicon.ChildsItem;
 import xin.xiaoa.englishlearn.fragment_lexicon.GroupsItem;
 import xin.xiaoa.englishlearn.fragment_lexicon.MyExpandableListViewAdapter;
@@ -66,7 +68,7 @@ public class LexiconFragment extends Fragment {
             }
         });
         groupsLists = init();
-        myExpandableListViewAdapter = new MyExpandableListViewAdapter(context,groupsLists);
+        myExpandableListViewAdapter = new MyExpandableListViewAdapter(context,groupsLists,new MyClickListener());
         expandableListView.setAdapter(myExpandableListViewAdapter);
 
         butAllWord = view.findViewById(R.id.lexicon_all_word);
@@ -91,7 +93,13 @@ public class LexiconFragment extends Fragment {
 
     void funAllWord(){}
     void funNewWord(){}
-    void funSpecialWord(){}
+    void funA2W(){
+        Intent intent = new Intent();
+        intent.setClass(context, A2WActivity.class);
+        startActivity(intent);
+    }
+    void funSpecialWord(){
+    }
 
     class MyClickListener implements View.OnClickListener {
 
@@ -103,6 +111,8 @@ public class LexiconFragment extends Fragment {
                     funNewWord();break;
                 case R.id.lexicon_special_word:
                     funSpecialWord();break;
+                case R.id.expandable_listview_item_group_button:
+                    funA2W();break;
             }
         }
     }
@@ -115,6 +125,7 @@ public class LexiconFragment extends Fragment {
 
         groupsItem = new GroupsItem();
         groupsItem.setStrName("个人词库");
+        groupsItem.setFirst(true);
         childsLists= new ArrayList<>();
 
         childsItem = new ChildsItem();
@@ -373,5 +384,7 @@ public class LexiconFragment extends Fragment {
         //##########################################################################################
         return groupsLists;
     }
+
+
 
 }

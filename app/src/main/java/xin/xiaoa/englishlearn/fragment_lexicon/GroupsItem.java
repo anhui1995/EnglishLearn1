@@ -5,6 +5,21 @@ import java.util.List;
 public class GroupsItem {
 
     private List<ChildsItem> childsLists;
+    private String strName;
+    private boolean isFirst;
+
+    public boolean isFirst() {
+        return isFirst;
+    }
+
+    public void setFirst(boolean first) {
+        isFirst = first;
+    }
+
+
+    public GroupsItem() {
+        this.isFirst = false;
+    }
 
     public String getStrName() {
         return strName;
@@ -14,7 +29,6 @@ public class GroupsItem {
         this.strName = strName;
     }
 
-    private String strName;
     public List<ChildsItem> getChilds() {
         return childsLists;
     }
