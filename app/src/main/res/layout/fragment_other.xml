@@ -5,7 +5,7 @@
     tools:context="xin.xiaoa.englishlearn.fragment_all.StudyFragment">
 
     <LinearLayout
-        android:id="@+id/other_layout_1"
+        android:id="@+id/a2w_layout_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -58,6 +58,6 @@
         android:id="@+id/other_viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/other_layout_1" />
+        android:layout_below="@+id/a2w_layout_1" />
 
 </RelativeLayout>

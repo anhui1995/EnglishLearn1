@@ -2,8 +2,15 @@ package xin.xiaoa.englishlearn.fragment_lexicon;
 
 public class ChildsItem {
 
-    private String content;
+    private String key;
     private String name;
+
+    public ChildsItem(String name, String key) {
+        this.name = name;
+        this.key = key;
+    }
+
+    public ChildsItem() {}
 
     public String getName() {
         return name;
@@ -14,11 +21,11 @@ public class ChildsItem {
     }
 
     public String getContent() {
-        return content;
+        return key;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setContent(String key) {
+        this.key = key;
     }
 
 

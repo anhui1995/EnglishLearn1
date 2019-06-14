@@ -4,6 +4,7 @@ import android.app.Application;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.sql.Connection;
+import android.os.Handler;
 
 public class ELApplication extends Application {
 
@@ -12,6 +13,17 @@ public class ELApplication extends Application {
     private static String wordPath;
     private static String rootPath;
     private static SQLiteDatabase db;
+
+    private static Handler lexiconFragmentHandle;
+
+    public static void setLexiconFragmentHandle(android.os.Handler handler) {
+        ELApplication.lexiconFragmentHandle = handler;
+    }
+
+
+    public static Handler getLexiconFragmentHandle() {
+        return lexiconFragmentHandle;
+    }
 
     public static SQLiteDatabase getDb() {
         return db;

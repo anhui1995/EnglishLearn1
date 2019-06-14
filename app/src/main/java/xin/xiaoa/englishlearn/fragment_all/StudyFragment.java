@@ -238,36 +238,6 @@ public class StudyFragment extends Fragment {
         mToast.show();
     }
 
-//    void openRs() {
-//        fds
-//                reviewLists = new ArrayList<>();
-//        Lists = new ArrayList<>();
-//        //Lists = new ArrayList<WordDictationListItem>();
-//        //text.setText("开始解析结果集");
-//        try { //链接数据库 if(name.equals("admin")){
-//
-//            while (rsList.next()) {
-//
-//                allWordItem = new StudyAllWordItem();
-//                String s;
-//
-//                allWordItem.setAdj(rsList.getString("adj"));
-//                allWordItem.setAdv(rsList.getString("adv"));
-//                allWordItem.setEnglish(rsList.getString("english"));
-//                allWordItem.setFayin(rsList.getString("fayin"));
-//                allWordItem.setN(rsList.getString("n"));
-//                allWordItem.setOther(rsList.getString("other"));
-//                allWordItem.setV(rsList.getString("v"));
-//                allWordItem.setYinbiao(rsList.getString("yinbiao"));
-//                Lists.add(allWordItem);
-//            }
-//        } catch (Exception e) {
-//            System.out.println("结果集解析问题问题" + e);
-//        }
-//        handler.sendEmptyMessage(2);
-//    }
-
-    //handler.sendEmptyMessage(1);
     void setUnitWordList() {
         System.out.println("开始解析结果集  openRs()");
         reviewLists = new ArrayList<>();
@@ -278,6 +248,7 @@ public class StudyFragment extends Fragment {
                     cursorWordList.getString(cursorWordList.getColumnIndex("english")),
                     cursorWordList.getInt(cursorWordList.getColumnIndex("memoryDatabase")),
                     cursorWordList.getString(cursorWordList.getColumnIndex("nextdate")) ));
+            System.out.println("日期："+cursorWordList.getString(cursorWordList.getColumnIndex("nextdate")));
         }
         review.setReviewLists(reviewLists);
         cursorWordList.close();
@@ -320,20 +291,6 @@ public class StudyFragment extends Fragment {
         butGoogle.setOnClickListener(new MyClickListener());
     }
 
-//    void getUnitWordList() {
-//        new Thread() {
-//            public void run() {
-//                try { //链接数据库 if(name.equals("admin")){
-//                    if (!ELApplication.getSql().sqlStation())
-//                        System.out.println("数据库连接连接已经断开。");
-//                    rsList = ELApplication.getSql().sel("SELECT word.*,adminword.flog FROM word,adminword where adminword.word=word.english  AND adminword.flog='ok' ORDER BY RAND()"); //查询
-//                } catch (Exception e) {
-//                    System.out.println("结果集获取失败问题" + e);
-//                }
-//                handler.sendEmptyMessage(1);
-//            }
-//        }.start();
-//    }
 
     void getUnitWordList() {
         new Thread() {
@@ -345,6 +302,21 @@ public class StudyFragment extends Fragment {
                  } catch (Exception e) {
                     System.out.println("结果集获取失败问题" + e);
                 }
+//                while (cursorWordList.moveToNext()) {
+//                    String tmp="INSERT INTO _view (id, english, memoryDatabase, nextdate)VALUES ( '"+
+//                            cursorWordList.getString(cursorWordList.getColumnIndex("id"))+"','"+
+//                            cursorWordList.getString(cursorWordList.getColumnIndex("english")).replace("'","''")+"','"+
+//                            cursorWordList.getInt(cursorWordList.getColumnIndex("memoryDatabase"))+"','"+
+//                            cursorWordList.getString(cursorWordList.getColumnIndex("nextdate"))+"' )";
+//
+//                    try { //链接数据库 if(name.equals("admin")){
+//                        if (!ELApplication.getSql().sqlStation())
+//                            System.out.println("数据库连接连接已经断开。");
+//                        ELApplication.getSql().up(tmp);//已经获取结果集
+//                        System.out.println("插入成功");
+//
+//                    } catch(Exception e) { System.out.println("结果集获取失败问题"+e); }
+//                }
                 handler.sendEmptyMessage(1);
             }
         }.start();
@@ -386,16 +358,6 @@ public class StudyFragment extends Fragment {
 
                     while (rsList.next()) {
 
-//                        allWordItem = new StudyAllWordItem();
-//                        allWordItem.setAdj(rsList.getString("adj"));
-//                        allWordItem.setAdv(rsList.getString("adv"));
-//                        allWordItem.setEnglish(rsList.getString("english"));
-//                        allWordItem.setFayin(rsList.getString("fayin"));
-//                        allWordItem.setN(rsList.getString("n"));
-//                        allWordItem.setOther(rsList.getString("other"));
-//                        allWordItem.setV(rsList.getString("v"));
-//                        allWordItem.setYinbiao(rsList.getString("yinbiao"));
-
                         String sql = "insert into word " +
                                 "(id,english,yinbiao,fayin,n,v,adj,adv,other) values " +
                                 "(NULL,'"+ rsList.getString("english")+"','"+
@@ -433,7 +395,18 @@ public class StudyFragment extends Fragment {
         setNext();
     }
     void butFunYoudao(){
-        System.out.println("butFunYoudao");
+        SQLiteDatabase db = ELApplication.getDb();
+        Cursor curs = db.rawQuery("select * from ONLY_WORD ", new String[]{});
+        System.out.println("______________________________________________________________");
+        System.out.println("\n");
+        System.out.println("\n");
+        while (curs.moveToNext()) {
+            System.out.print("\""+curs.getString(curs.getColumnIndex("word"))+"\", ");
+        }
+        System.out.println(" ");
+        System.out.println("\n");
+        System.out.println("______________________________________________________________");
+
     }
     void butFunBaidu(){
         System.out.println("butFunBaidu");

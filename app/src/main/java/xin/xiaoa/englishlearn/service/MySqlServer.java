@@ -44,12 +44,34 @@ public class MySqlServer {
 
     public int up(String cmd) {
         System.out.println(cmd);
-        //if(sqlStationCheck()) System.out.println("数据库连接正常，定义");
+        if(sqlStationCheck()) System.out.println("数据库连接正常，定义");
         try {
             sql = con.createStatement();
             if (sql.isClosed())
                 System.out.println("连接已经关闭了，不能插入)");
-            return sql.executeUpdate(cmd);
+            else {
+                sql.executeUpdate(cmd);
+                ResultSet sqlResultSet = sql.executeQuery("SELECT LAST_INSERT_ID()");
+                sqlResultSet.next();
+                return sqlResultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println("sql 更新错误" + e);
+        }
+        return -1;
+    }
+
+    public int delete(String cmd) {
+        System.out.println(cmd);
+        if(sqlStationCheck()) System.out.println("数据库连接正常，定义");
+        try {
+            sql = con.createStatement();
+            if (sql.isClosed())
+                System.out.println("连接已经关闭了，不能插入)");
+            else {
+                sql.executeUpdate(cmd);
+                return 1;
+            }
         } catch (SQLException e) {
             System.out.println("sql 更新错误" + e);
         }

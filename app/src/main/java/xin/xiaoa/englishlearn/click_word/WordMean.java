@@ -2,6 +2,7 @@ package xin.xiaoa.englishlearn.click_word;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
 
@@ -15,7 +16,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
+import xin.xiaoa.englishlearn.fragment_study.StudyMeanListAdapter;
+import xin.xiaoa.englishlearn.fragment_study.StudyWordMeaningItem;
 import xin.xiaoa.englishlearn.service.ELApplication;
 
 public class WordMean {
@@ -44,19 +48,80 @@ public class WordMean {
                     .show();
             return null;
         }
-        try { //链接数据库 if(name.equals("admin")){
+
+        if(!suchWithLoction()){// 本地数据库查不到 ，到云端查询
+            suchWithService();
+            openRs();
+        }
+
+
+        return wordItem;
+    }
+
+
+
+    private boolean suchWithLoction(){
+        boolean isget=false;
+        Cursor cursorWordDetail;
+        System.out.println("从本地查单词");
+        try {
+            SQLiteDatabase db = ELApplication.getDb();
+            cursorWordDetail = db.rawQuery("select * from word where english=?", new String[]{word});
+            System.out.println("开始解析");
+            while (cursorWordDetail.moveToNext()) {
+                wordItem = new WordItem();
+
+                wordItem.setId(cursorWordDetail.getInt(cursorWordDetail.getColumnIndex("id")));
+                wordItem.setEnglish(cursorWordDetail.getString(cursorWordDetail.getColumnIndex("english")));
+                wordItem.setN(cursorWordDetail.getString(cursorWordDetail.getColumnIndex("n")));
+                wordItem.setV(cursorWordDetail.getString(cursorWordDetail.getColumnIndex("v")));
+                wordItem.setAdj(cursorWordDetail.getString(cursorWordDetail.getColumnIndex("adj")));
+                wordItem.setAdv(cursorWordDetail.getString(cursorWordDetail.getColumnIndex("adv")));
+                wordItem.setOther(cursorWordDetail.getString(cursorWordDetail.getColumnIndex("other")));
+                wordItem.setYinbiao("[ "+ cursorWordDetail.getString(cursorWordDetail.getColumnIndex("yinbiao"))+" ]");
+                wordItem.setFayin(cursorWordDetail.getString(cursorWordDetail.getColumnIndex("fayin")));
+                isget = true;
+            }
+            cursorWordDetail.close();
+
+        } catch (Exception e) {
+            System.out.println("结果集获取失败问题 suchWithLoction" + e);
+            return false;
+        }
+        return isget;
+    }
+
+    private void suchWithService(){
+        System.out.println("从服务器查单词");
+        try {
             if (!ELApplication.getSql().sqlStation())
                 System.out.println("数据库连接连接已经断开。");
             sqlResultSet = ELApplication.getSql().sel("SELECT * FROM word WHERE english='"+word+"'"); //查询
             System.out.println("已经获取结果集");
 
         } catch(Exception e) { System.out.println("结果集获取失败问题"+e); }
-        openRs();
-
-        return wordItem;
     }
+
+    //写单词意思到本地数据库
+    private void write2SQLite(){
+        SQLiteDatabase db = ELApplication.getDb();
+        String sql = "insert into word " +
+                "(id,english,yinbiao,fayin,n,v,adj,adv,other) values ( "+
+                wordItem.getId()+" ,'"+
+                wordItem.getEnglish()+"','"+
+                wordItem.getYinbiao().replace("'","''")+"','"+
+                wordItem.getFayin()+"','"+
+                wordItem.getN()+"','"+
+                wordItem.getV()+"','"+
+                wordItem.getAdj()+"','"+
+                wordItem.getAdv()+"','"+
+                wordItem.getOther()+"')";
+        db.execSQL(sql);
+    }
+
+
     @SuppressLint("SetTextI18n")
-    void openRs(){
+    private void openRs(){
 
         //开始解析结果集
         try {
@@ -72,11 +137,11 @@ public class WordMean {
                 wordItem.setOther(sqlResultSet.getString("other"));
                 wordItem.setYinbiao("[ "+ sqlResultSet.getString("yinbiao")+" ]");
                 wordItem.setFayin(sqlResultSet.getString("fayin"));
+                write2SQLite();
             }
             else{
                 suchFlog++;
-
-                if(suchFlog==3){
+                if(suchFlog==2){
                     Toast.makeText(
                             context,
                             "单词未收录", Toast.LENGTH_SHORT)
@@ -89,7 +154,7 @@ public class WordMean {
             }
 
 
-        } catch(Exception e) { System.out.println("结果集解析问题问题"+e); }
+        } catch(Exception e) { System.out.println("结果集解析问题问题java"+e); }
     }
     public void upword(String suchWord) {
         String uuu="http://dict-co.iciba.com/api/dictionary.php?w="+suchWord+"&type=json&key=24BF8398B2971CFC01004C0715A08D95";

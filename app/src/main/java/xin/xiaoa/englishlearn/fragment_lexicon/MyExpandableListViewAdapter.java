@@ -106,10 +106,10 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
         }
 
         TextView tvChildName = convertView.findViewById(R.id.expandable_listview_item_childs_name);
-        TextView tvChildContent = convertView.findViewById(R.id.expandable_listview_item_childs_content);
+      //  TextView tvChildContent = convertView.findViewById(R.id.expandable_listview_item_childs_content);
 
         tvChildName.setText(groupsLists.get(groupPosition).getChilds().get(childPosition).getName());
-        tvChildContent.setText(groupsLists.get(groupPosition).getChilds().get(childPosition).getContent());
+      //  tvChildContent.setText(groupsLists.get(groupPosition).getChilds().get(childPosition).getContent());
         return convertView;
     }
 

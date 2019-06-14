@@ -50,24 +50,15 @@ public class SQLiteService {
         db = SQLiteDatabase.openOrCreateDatabase(file,null);
         ELApplication.setDb(db);
 
-        //db = dbHelper.getWritableDatabase();
-//        String TABLE_NAME = "Book";
-//        String sql = "CREATE TABLE " + TABLE_NAME
-//                + "(_id INTEGER PRIMARY KEY,"
-//                + " BookName VARCHAR(30)  NOT NULL,"
-//                + " Author VARCHAR(20),"
-//                + " Publisher VARCHAR(30))";
+
         System.out.println("建立数据表");
         String TABLE_NAME = "ONLY_WORD";
         String sql = "CREATE TABLE if not exists " + TABLE_NAME
                 + "(_id INTEGER PRIMARY KEY,"
                 + " word VARCHAR(30)   NOT NULL)";
         db.execSQL(sql);
+
         // 建立本地复习数据库
-
-//         sql = "DROP TABLE review";
-//        db.execSQL(sql);
-
          sql = "CREATE TABLE if not exists review"
                  + "(id INTEGER PRIMARY KEY AUTOINCREMENT,"
                  + " english VARCHAR(30) NOT NULL,"
@@ -75,6 +66,7 @@ public class SQLiteService {
                  + " nextdate date NOT NULL)";
         db.execSQL(sql);
 
+        // 建立本地单词数据库
         sql = "CREATE TABLE if not exists word"
                 + "(id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + " english VARCHAR(30) NOT NULL,"
@@ -92,6 +84,9 @@ public class SQLiteService {
         System.out.println("chaxun");
         //  select(db);
     }
+
+
+
     void inseart(String name){
         // dbHelper.insert("纳兰词","纳兰性德","中国文史出版社");
         //  dbHelper.insert("离散数学","十二五","人民邮电出版社");

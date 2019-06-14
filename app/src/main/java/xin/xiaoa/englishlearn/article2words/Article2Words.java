@@ -24,17 +24,9 @@ public class Article2Words {
     //构造函数，输入文章内容
     public Article2Words(String content) {
         this.content = content;
-//        this.content  = "kolya is one of the richest films i've seen in some time." +
-//                "zdenek sverak plays a confirmed old bachelor ( who's likely to" +
-//                " remain so ) , who finds his life as a czech cellist increasingly " +
-//                "impacted by the five-year old boy that he's taking care of . though " +
-//                "it ends rather abruptly-- and i'm whining , 'cause i wanted to spend " +
-//                "more time with these characters-- the acting , writing , and production " +
-//                "values are as high as , if not higher than , comparable american dramas. " +
-//                "this father-and-son delight-- sverak also wrote the script , while his son , " +
-//                "jan , directed-- won a golden globe for best foreign language film and , " +
-//                "a couple days after i saw it , walked away an oscar . in czech and russian , " +
-//                "with english subtitles . ";
+        splitWord();
+        countWordFreq();
+        sort();
     }
 
     //对文章根据分隔符进行分词,将结果保存到rawWords数组中
@@ -133,7 +125,7 @@ public class Article2Words {
         a2wLVLists = new ArrayList<>();
         for(int i = 0; i < words.length; i++){
             a2wLVLists.add(new A2wListviewItem(words[i],wordFreqs[i]));
-            System.out.println(words[i]+" - "+wordFreqs[i]);
+           // System.out.println(words[i]+" - "+wordFreqs[i]);
         }
         return a2wLVLists;
     }

@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +23,7 @@ import xin.xiaoa.englishlearn.activity.A2WActivity;
 import xin.xiaoa.englishlearn.fragment_lexicon.ChildsItem;
 import xin.xiaoa.englishlearn.fragment_lexicon.GroupsItem;
 import xin.xiaoa.englishlearn.fragment_lexicon.MyExpandableListViewAdapter;
+import xin.xiaoa.englishlearn.service.ELApplication;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,6 +38,29 @@ public class LexiconFragment extends Fragment {
     Button butNewWord;
     Button butSpecialWord;
     List<GroupsItem> groupsLists;
+    ResultSet publicRsList, privateRsList;
+
+    @SuppressLint("HandlerLeak")
+    private Handler handler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            int what = msg.what;
+            switch (what) {
+                case 1:
+                    openPublicRsList();
+                    break;
+                case 2:
+                    openPrivateRsList();
+                    break;
+                case 3:
+                    getPrivateList();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    };
+
     @SuppressLint("ValidFragment")
     public LexiconFragment(Context cont) {
         context = cont;
@@ -67,9 +93,10 @@ public class LexiconFragment extends Fragment {
                 }
             }
         });
-        groupsLists = init();
-        myExpandableListViewAdapter = new MyExpandableListViewAdapter(context,groupsLists,new MyClickListener());
-        expandableListView.setAdapter(myExpandableListViewAdapter);
+        getPrivateList();
+//        groupsLists = init();
+//        myExpandableListViewAdapter = new MyExpandableListViewAdapter(context,groupsLists,new MyClickListener());
+//        expandableListView.setAdapter(myExpandableListViewAdapter);
 
         butAllWord = view.findViewById(R.id.lexicon_all_word);
         butNewWord = view.findViewById(R.id.lexicon_new_word);
@@ -87,16 +114,40 @@ public class LexiconFragment extends Fragment {
         @Override
         public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
             showToast(groupsLists.get(groupPosition).getChilds().get(childPosition).getContent());
+            if(groupPosition==0) editMyLexicon("first",groupsLists.get(groupPosition).getChilds().get(childPosition).getContent() ,
+                    groupsLists.get(groupPosition).getChilds().get(childPosition).getName() );
+            else editMyLexicon("other",groupsLists.get(groupPosition).getChilds().get(childPosition).getContent() ,
+                    groupsLists.get(groupPosition).getChilds().get(childPosition).getName() );
             return false;
         }
     }
+    void editMyLexicon(String strCmd, String key, String title){
+        ELApplication.setLexiconFragmentHandle(handler);
+        Intent intent = new Intent();
+        intent.setClass(context, A2WActivity.class);
 
+        Bundle bundle = new Bundle();
+        bundle.putString("cmd", strCmd);
+        bundle.putString("key", key);
+        bundle.putString("title", title);
+//        switch (strCmd){
+//            case "add":{
+//
+//                }break;
+//            case "first":{
+//                bundle.putString("cmd", strCmd);
+//                }break;
+//            case "other":{
+//                bundle.putString("cmd", strCmd);
+//                }break;
+//        }
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
     void funAllWord(){}
     void funNewWord(){}
     void funA2W(){
-        Intent intent = new Intent();
-        intent.setClass(context, A2WActivity.class);
-        startActivity(intent);
+        editMyLexicon("add","","我的词库");
     }
     void funSpecialWord(){
     }
@@ -115,6 +166,84 @@ public class LexiconFragment extends Fragment {
                     funA2W();break;
             }
         }
+    }
+
+    void getPrivateList(){
+        new Thread() {
+            public void run() {
+                try { //链接数据库 if(name.equals("admin")){
+                    if (!ELApplication.getSql().sqlStation())
+                        System.out.println("数据库连接连接已经断开。");
+                    //已经获取结果unit
+                    privateRsList = ELApplication.getSql().sel("SELECT DISTINCT * FROM a2w_article "); //查询
+
+                } catch (Exception e) {
+                    System.out.println("unit结果集获取失败问题" + e);
+                }
+               // handler.sendEmptyMessage(2);
+                openPrivateRsList();
+            }
+        }.start();
+    }
+    void openPrivateRsList(){
+        groupsLists= new ArrayList<>();
+        List<ChildsItem> childsLists = new ArrayList<>();
+        try {
+            while (privateRsList.next()) {
+                String key = privateRsList.getString("id");
+                String name = privateRsList.getString("title");
+                childsLists.add(new ChildsItem(name,key));
+            }
+        } catch (Exception e) {
+            System.out.println("结果集解析问题问题" + e);
+        }
+        groupsLists.add(  new GroupsItem(  "我的词库",  childsLists  ,true  )  );
+        getPublicList();
+    }
+
+    void getPublicList(){
+        new Thread() {
+            public void run() {
+                try { //链接数据库 if(name.equals("admin")){
+                    if (!ELApplication.getSql().sqlStation())
+                        System.out.println("数据库连接连接已经断开。");
+                    //已经获取结果unit
+                    publicRsList = ELApplication.getSql().sel("SELECT DISTINCT source FROM lexicon "); //查询
+
+                } catch (Exception e) {
+                    System.out.println("unit结果集获取失败问题" + e);
+                }
+                handler.sendEmptyMessage(1);
+            }
+        }.start();
+    }
+
+    void openPublicRsList(){
+        //List<GroupsItem>
+
+        try {
+            while (publicRsList.next()) {
+                String tmp = publicRsList.getString("source");
+                String[] rawWords = tmp.split("_");
+                int i=0;
+                for(i=0;i<groupsLists.size();i++){
+                    if(groupsLists.get(i).getStrName().equals(rawWords[0])){
+                        groupsLists.get(i).addChildsItem(new ChildsItem(rawWords[1],tmp));
+                        break;
+                    }
+                }
+                if(i==groupsLists.size()){
+
+                    groupsLists.add(  new GroupsItem(  rawWords[0],new ChildsItem(rawWords[1],tmp)  )  );
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("结果集解析问题问题" + e);
+        }
+       // groupsLists = init();
+        myExpandableListViewAdapter = new MyExpandableListViewAdapter(context,groupsLists,new MyClickListener());
+        expandableListView.setAdapter(myExpandableListViewAdapter);
+
     }
 
     List<GroupsItem> init(){

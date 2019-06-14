@@ -64,6 +64,7 @@ public class ReviewListItem {
     }
 
     public void setMemoryLocal(int memoryLocal) {
+        if(memoryLocal<1) memoryLocal = 1;
         this.memoryLocal = memoryLocal;
     }
 

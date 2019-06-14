@@ -1,52 +1,98 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/a2w_tv_article"
-            android:layout_width="wrap_content"
-            android:layout_height="150dp"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:text="Name"
-            android:textSize="14sp" />
-    </LinearLayout>
+    android:layout_height="match_parent"
+    tools:context="xin.xiaoa.englishlearn.fragment_all.StudyFragment">
 
     <LinearLayout
+        android:id="@+id/a2w_layout_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/a2w_but_get"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="提取单词" />
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp">
 
-        <Button
-            android:id="@+id/a2w_but_add"
-            android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/a2w_but_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/other_button_background_noselect"
+                android:text="返回"
+                android:textColor="@color/whites"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/a2w_but_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/other_button_background_select"
+                android:text="预览"
+                android:textColor="@color/whites"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/a2w_but_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/other_button_background_noselect"
+                android:text="保存"
+                android:textColor="@color/whites"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="添加到词库" />
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="词库标题："
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/a2w_f_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="题目" />
+        </LinearLayout>
+
+
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/a2w_lv"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/a2w_viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="#00000000" />
-</LinearLayout>
+        android:layout_below="@+id/a2w_layout_1" />
+
+</RelativeLayout>
