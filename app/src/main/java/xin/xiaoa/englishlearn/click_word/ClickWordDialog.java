@@ -49,7 +49,7 @@ public class ClickWordDialog {
         }
     };
 
-    String reg = "[^a-zA-Z]";
+    String reg = "[^a-zA-Z ]";
     public ClickWordDialog(Context context, String word) {
         this.context = context;
         //this.word = word;

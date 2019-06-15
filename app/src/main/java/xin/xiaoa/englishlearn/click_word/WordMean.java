@@ -26,6 +26,7 @@ public class WordMean {
 
 
 
+
     private int suchFlog=0;
     private ResultSet sqlResultSet;
     private Context context;
@@ -217,7 +218,8 @@ public class WordMean {
             parts = symbols.getJSONArray("parts");
             JSONObject jsonTmp;
             JSONArray arrMeans;
-
+            System.out.println("阿萨大大大"+strWord);
+            System.out.println("阿萨大大大"+parts);
             for(int i=0;i<parts.length();i++){
                 StringBuilder strMeanTmp= new StringBuilder();
                 jsonTmp = parts.getJSONObject(i);
@@ -226,6 +228,8 @@ public class WordMean {
                     strMeanTmp.append(arrMeans.getString(j));
                     strMeanTmp.append(",");
                 }
+                System.out.println("阿萨"+jsonTmp.getString("part"));
+                System.out.println("阿萨"+strMeanTmp);
                 switch(jsonTmp.getString("part")){
                     case "n.":strN.append(strMeanTmp);break;
                     //case "n.":strN = strN + strMeanTmp;break;
@@ -234,7 +238,9 @@ public class WordMean {
                     case "v.":strV.append(strMeanTmp);break;
                     case "adj.":strAdj.append(strMeanTmp);break;
                     case "ajv.":strAdv.append(strMeanTmp);break;
-                    default :strOther.append(strMeanTmp);break;
+                    default :strOther.append(strMeanTmp);
+                        System.out.println("这不是可以么");
+                    break;
                 }
             }
             //String checkStr = strN + strV + strAdv + strAdj + strOther;
@@ -245,12 +251,13 @@ public class WordMean {
             stress.append(strV);
             stress.append(strAdj);
             stress.append(strOther);
-            String checkStr= String.valueOf(strN);
+            String checkStr= String.valueOf(stress);
 
-
+            System.out.println("阿萨"+checkStr);
+            System.out.println(checkStr);
             if(checkStr.equals("")) return;
             String tmp="INSERT INTO word (english, yinbiao, fayin, n, v, adj ,adv ,other ,times)VALUES ( '"+strWord+"','"+ph_en.replace("'","''")+"','"+ph_en_mp3+"','"+strN+"','"+strV+"','"+strAdv+"','"+strAdj+"','"+strOther+"','1')";
-
+            System.out.println(tmp);
             try { //链接数据库 if(name.equals("admin")){
                 if (!ELApplication.getSql().sqlStation())
                     System.out.println("数据库连接连接已经断开。");

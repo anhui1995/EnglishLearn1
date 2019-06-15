@@ -25,6 +25,7 @@ import xin.xiaoa.englishlearn.activity.LoginActivity;
 import xin.xiaoa.englishlearn.fragment_my.MyListViewAdapter;
 import xin.xiaoa.englishlearn.fragment_my.MyListViewItem;
 import xin.xiaoa.englishlearn.service.ELApplication;
+import xin.xiaoa.englishlearn.service.PreferencesUtils;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
@@ -107,6 +108,7 @@ public class MyFragment extends Fragment {
 
     void quit(){
         ELApplication.setLogin("err");
+        PreferencesUtils.putSharePre(context, "login", "err");
         Intent intent = new Intent();
         intent.setClass(context, LoginActivity.class);
         startActivity(intent);

@@ -14,8 +14,10 @@ import java.sql.ResultSet;
 import xin.xiaoa.englishlearn.activity.LoginActivity;
 import xin.xiaoa.englishlearn.service.ELApplication;
 import xin.xiaoa.englishlearn.service.MySqlServer;
+import xin.xiaoa.englishlearn.service.PreferencesUtils;
 import xin.xiaoa.englishlearn.service.SQLiteService;
 import xin.xiaoa.englishlearn.service.ToastUtil;
+import xin.xiaoa.englishlearn.service.UserMassge;
 
 public class LaunchActivity extends Activity {
 
@@ -95,8 +97,10 @@ public class LaunchActivity extends Activity {
             }
         }
 
+        int flog=0;
         while (!ELApplication.getSql().sqlStation()) {
-
+            flog++;
+            if(flog>3) break;
             System.out.println("数据库未登录");
             try {
                 Thread.sleep(500);
@@ -114,11 +118,45 @@ public class LaunchActivity extends Activity {
             Intent intent2 = new Intent(mContext, LoginActivity.class);
             startActivity(intent2);
         } else {
+            String pwd=PreferencesUtils.getSharePreStr(this, "login");//密码
+            if("ok".equals(pwd)){
+
+
+                initNoLogin();
+                Intent intent2 = new Intent(mContext, BottomNavigationBarActivity.class);
+                startActivity(intent2);
+            }
             System.out.println("登录失败");
-            ToastUtil.showShortToast(mContext, "登录失败，请检您的网络是否正常以及用户名和密码是否正确");
+           // ToastUtil.showShortToast(mContext, "请检您的网络是否正常以及用户名和密码是否正确");
         }
 
 
+    }
+    void initNoLogin(){
+        UserMassge userMassge = new UserMassge();
+        userMassge.setConsecutive(0);
+        userMassge.setAll(0);
+        userMassge.setUnknow(0);
+        userMassge.setLearned(0);
+        userMassge.setRemainder(0);
+        userMassge.setKnow(0);
+        userMassge.setFuzzy(0);
+        userMassge.setStubborn(0);
+
+
+        String username=PreferencesUtils.getSharePreStr(this, "username");//用户名
+        String email=PreferencesUtils.getSharePreStr(this, "email");//密码
+        String tip=PreferencesUtils.getSharePreStr(this, "tip");//密码
+        int id=PreferencesUtils.getSharePreInt(this, "id");//密码
+
+        userMassge.setUsername(username);
+        userMassge.setEmail(email);
+        userMassge.setTip(tip);
+
+        ELApplication.setUserMassge(userMassge);
+        ELApplication.setLogin("ok");
+        PreferencesUtils.putSharePre(mContext, "login", "ok");
+        ELApplication.setUsernameId(id);
     }
 
     //生成文件夹

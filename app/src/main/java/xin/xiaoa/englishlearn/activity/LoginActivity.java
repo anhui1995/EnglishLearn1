@@ -307,10 +307,16 @@ public class LoginActivity extends Activity{
 				PreferencesUtils.putSharePre(mContext, "email", userMassge.getEmail());
 				PreferencesUtils.putSharePre(mContext, "tip", userMassge.getTip());
 
+
+
 				ELApplication.setUserMassge(userMassge);
 				ELApplication.setPrefix(rs.getString("prefix"));
 				ELApplication.setLogin("ok");
+				PreferencesUtils.putSharePre(mContext, "login", "ok");
 				ELApplication.setUsernameId(rs.getInt("id"));
+                PreferencesUtils.putSharePre(mContext, "id", ELApplication.getUsernameId());
+                PreferencesUtils.putSharePre(mContext, "prefix", ELApplication.getPrefix());
+
 
 				loadDialog.hide();
 				Intent intent = new Intent(); 
