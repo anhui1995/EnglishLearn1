@@ -7,6 +7,20 @@
     tools:context="xin.xiaoa.englishlearn.fragment_all.StudyFragment">
 
     <LinearLayout
+        android:id="@+id/study_Layout_dictation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/study_Layout_dictation_lv_dic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/study_Layout_fayin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -99,63 +113,47 @@
             android:id="@+id/study_lv_example"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_above="@+id/study_other_dic"
+            android:layout_above="@+id/linearLayoutBottom"
             android:layout_below="@+id/layout_example"
             android:layout_margin="7dp" />
 
 
-        <LinearLayout
-            android:id="@+id/study_other_dic"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/linearLayoutOther"
-            android:background="@color/study_layout_example"
-            android:orientation="horizontal"
-            android:paddingLeft="15dp"
-            android:paddingTop="7dp"
-            android:paddingRight="15dp"
-            android:paddingBottom="7dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="其他词典"
-                android:textSize="16sp"/>
-        </LinearLayout>
 
 
-        <LinearLayout
-            android:id="@+id/linearLayoutOther"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/linearLayoutBottom"
-            android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/study_button_youdao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="有道" />
+        <!--<LinearLayout-->
+            <!--android:id="@+id/linearLayoutOther"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_above="@+id/linearLayoutBottom"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:visibility="invisible">-->
 
-            <Button
-                android:id="@+id/study_button_google"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="谷歌" />
+            <!--<Button-->
+                <!--android:id="@+id/study_button_youdao"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="有道" />-->
 
-            <Button
-                android:id="@+id/study_button_jinshan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="金山词霸" />
+            <!--<Button-->
+                <!--android:id="@+id/study_button_google"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="谷歌" />-->
 
-            <Button
-                android:id="@+id/study_button_baidu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="百度" />
+            <!--<Button-->
+                <!--android:id="@+id/study_button_jinshan"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="金山词霸" />-->
 
-        </LinearLayout>
+            <!--<Button-->
+                <!--android:id="@+id/study_button_baidu"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="百度" />-->
+
+        <!--</LinearLayout>-->
 
         <LinearLayout
             android:id="@+id/linearLayoutBottom"

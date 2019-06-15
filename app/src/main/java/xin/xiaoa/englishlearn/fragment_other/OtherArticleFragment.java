@@ -140,21 +140,6 @@ public class OtherArticleFragment extends Fragment {
         spinner = view.findViewById(R.id.other_art_spinner);
         spinner.setPopupBackgroundResource(R.drawable.other_art_spinner_bg);
         spinner.setOnItemSelectedListener(new MySpinnerSelectListener());
-//
-//        fromList.add(new OtherSpinnerItem("BBC","en"));
-//        fromList.add(new OtherSpinnerItem("全球财经","zh"));
-//        fromList.add(new OtherSpinnerItem("TED","yue"));
-//        fromList.add(new OtherSpinnerItem("每日邮报","wyw"));
-//        fromList.add(new OtherSpinnerItem("时代周刊","jb"));
-//        fromList.add(new OtherSpinnerItem("南方周末","kor"));
-//        fromList.add(new OtherSpinnerItem("北方周波","fra"));
-//        fromList.add(new OtherSpinnerItem("财富","spa"));
-//        fromList.add(new OtherSpinnerItem("人民日报","th"));
-//        fromList.add(new OtherSpinnerItem("中国之声","ara"));
-//
-//        OtherSpinnerAdapter otherSpinnerAdapterAdapter = new OtherSpinnerAdapter(context, fromList);
-//        spinner.setAdapter(otherSpinnerAdapterAdapter);
-
     }
 
     class MySpinnerSelectListener implements AdapterView.OnItemSelectedListener {

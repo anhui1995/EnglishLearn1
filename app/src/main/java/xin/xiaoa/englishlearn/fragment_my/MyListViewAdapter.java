@@ -41,7 +41,7 @@ public class MyListViewAdapter  extends BaseAdapter {
         MyListViewItem entity = lists.get(arg0);
         if (holderView == null) {
             holderView = new MyListViewAdapter.HolderView();
-            if("set".equals(entity.getKey())){
+            if("quit".equals(entity.getKey())){
                 arg1 = View.inflate(context, R.layout.my_lv_item_button, null);
                 holderView.button = arg1.findViewById(R.id.my_lv_item_but);
             }
@@ -76,7 +76,7 @@ public class MyListViewAdapter  extends BaseAdapter {
     class HolderView {
         TextView tvKey;
         TextView tvValue;
-        Button button;
+        TextView button;
     }
 
 

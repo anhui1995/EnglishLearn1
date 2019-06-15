@@ -28,11 +28,12 @@ public class EditArticleFragment extends Fragment {
             "jan , directed-- won a golden globe for best foreign language film and , " +
             "a couple days after i saw it , walked away an oscar . in czech and russian , " +
             "with english subtitles . ";
+    String strCmd;
 
     @SuppressLint("ValidFragment")
-    public EditArticleFragment(Context con) {
+    public EditArticleFragment(Context con,String strCmd) {
         context = con;
-
+        this.strCmd = strCmd;
     }
 
     public String getArtilce(){

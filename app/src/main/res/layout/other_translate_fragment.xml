@@ -19,8 +19,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/whites"
-            android:padding="5dp"
-            android:text="TextView" />
+            android:hint="请输入原文"
+            android:padding="5dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -74,8 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/whites"
-            android:padding="5dp"
-            android:text="TextView" />
+            android:padding="5dp" />
     </LinearLayout>
 
     <ListView

@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.io.File;
 import java.sql.ResultSet;
@@ -27,6 +28,8 @@ public class ArticleActivity extends AppCompatActivity {
     ResultSet sqlResultSet;
     ArticleListViewAdapter articleListViewAdapter;
     ListView listView;
+    TextView tvSubtitle;
+    TextView tvTitle;
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         public void handleMessage(android.os.Message msg) {
@@ -44,13 +47,15 @@ public class ArticleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         System.out.println("class_MainActivity");
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_article);
         Bundle bundle = this.getIntent().getExtras();
         try{
             getArticle(bundle != null ? bundle.getString("id") : null);
         }
         catch (Exception ignored){}
+        tvSubtitle = findViewById(R.id.article_tv_subtitle);
+        tvTitle = findViewById(R.id.article_tv_title);
         listView = findViewById(R.id.article_listview);
         context = this;
 
@@ -78,9 +83,11 @@ public class ArticleActivity extends AppCompatActivity {
         try { //链接数据库 if(name.equals("admin")){
             lists = new ArrayList<>();
             while(sqlResultSet.next()) {
-                lists.add(new ArticleListViewItem("title",sqlResultSet.getString("title")));
-                lists.add(new ArticleListViewItem("subtitle",sqlResultSet.getString("subtitle")));
-                lists.add(new ArticleListViewItem("other",sqlResultSet.getString("tip")));
+                tvTitle.setText(sqlResultSet.getString("title"));
+                tvSubtitle.setText(sqlResultSet.getString("subtitle"));
+//                lists.add(new ArticleListViewItem("title",sqlResultSet.getString("title")));
+//                lists.add(new ArticleListViewItem("subtitle",sqlResultSet.getString("subtitle")));
+//                lists.add(new ArticleListViewItem("other",sqlResultSet.getString("tip")));
                 lists.add(new ArticleListViewItem("english",sqlResultSet.getString("english")));
                 lists.add(new ArticleListViewItem("other",sqlResultSet.getString("chinese")));
             }

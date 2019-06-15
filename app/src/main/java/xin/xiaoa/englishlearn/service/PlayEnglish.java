@@ -88,7 +88,7 @@ public class PlayEnglish {
             try {
                 output.close();
                 return 0;
-            } catch (IOException e) {
+            } catch (Exception e) {
                 System.out.println("fail");
                 e.printStackTrace();
             }

@@ -174,6 +174,7 @@ public class SearchActivity extends Activity {
         }
 
     }
+
     public void upword(String suchWord) {
         String uuu="http://dict-co.iciba.com/api/dictionary.php?w="+suchWord+"&type=json&key=24BF8398B2971CFC01004C0715A08D95";
 

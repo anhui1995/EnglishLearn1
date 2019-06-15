@@ -6,6 +6,9 @@ import android.database.sqlite.SQLiteDatabase;
 import java.sql.Connection;
 import android.os.Handler;
 
+import xin.xiaoa.englishlearn.fragment_all.MyFragment;
+import xin.xiaoa.englishlearn.fragment_all.OtherFragment;
+
 public class ELApplication extends Application {
 
     private static Connection con = null;
@@ -13,13 +16,77 @@ public class ELApplication extends Application {
     private static String wordPath;
     private static String rootPath;
     private static SQLiteDatabase db;
-
     private static Handler lexiconFragmentHandle;
+    private static String prefix;
+    private static UserMassge userMassge;
+    private static String login;
+    private static Handler studyFragmentHandler;
+    private static int usernameId;
+    private static Handler myFragmentHandler;
+    private static OtherFragment otherFragment;
+
+
+
+    public static OtherFragment getOtherFragment() {
+        return otherFragment;
+    }
+
+    public static void setOtherFragment(OtherFragment otherFragment) {
+        ELApplication.otherFragment = otherFragment;
+    }
+
+    public static Handler getMyFragmentHandler() {
+        return myFragmentHandler;
+    }
+
+    public static void setMyFragmentHandler(Handler myFragmentHandler) {
+        ELApplication.myFragmentHandler = myFragmentHandler;
+    }
+
+    public static int getUsernameId() {
+        return usernameId;
+    }
+
+    public static void setUsernameId(int usernameId) {
+        ELApplication.usernameId = usernameId;
+    }
+
+    public static Handler getStudyFragmentHandler() {
+        return studyFragmentHandler;
+    }
+
+    public static void setStudyFragmentHandler(Handler studyFragmentHandler) {
+        ELApplication.studyFragmentHandler = studyFragmentHandler;
+    }
+
+    public static String getLogin() {
+        return login;
+    }
+
+    public static void setLogin(String login) {
+        ELApplication.login = login;
+    }
+
+    public static UserMassge getUserMassge() {
+        return userMassge;
+    }
+
+    public static void setUserMassge(UserMassge userMassge) {
+        ELApplication.userMassge = userMassge;
+    }
+
+
+    public static String getPrefix() {
+        return prefix;
+    }
+
+    public static void setPrefix(String prefix) {
+        ELApplication.prefix = prefix;
+    }
 
     public static void setLexiconFragmentHandle(android.os.Handler handler) {
         ELApplication.lexiconFragmentHandle = handler;
     }
-
 
     public static Handler getLexiconFragmentHandle() {
         return lexiconFragmentHandle;

@@ -24,21 +24,21 @@
             android:background="@drawable/lexicon_ex_lv_item_group_bg"
             android:gravity="left|center_vertical"
             android:paddingLeft="10dp"
-            android:text="所有单词 "
+            android:text="单词查询 "
             android:textColor="@color/black"
             android:textSize="16sp" />
 
-        <Button
-            android:id="@+id/lexicon_special_word"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:background="@drawable/lexicon_ex_lv_item_group_bg"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="10dp"
-            android:text="特殊单词"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+        <!--<Button-->
+            <!--android:id="@+id/lexicon_special_word"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="6dp"-->
+            <!--android:background="@drawable/lexicon_ex_lv_item_group_bg"-->
+            <!--android:gravity="left|center_vertical"-->
+            <!--android:paddingLeft="10dp"-->
+            <!--android:text="特殊单词"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:textSize="16sp" />-->
 
         <Button
             android:id="@+id/lexicon_new_word"

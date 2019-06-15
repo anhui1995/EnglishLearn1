@@ -20,6 +20,8 @@ import java.util.List;
 
 import xin.xiaoa.englishlearn.R;
 import xin.xiaoa.englishlearn.activity.A2WActivity;
+import xin.xiaoa.englishlearn.activity.SearchActivity;
+import xin.xiaoa.englishlearn.click_word.SearchWord;
 import xin.xiaoa.englishlearn.fragment_lexicon.ChildsItem;
 import xin.xiaoa.englishlearn.fragment_lexicon.GroupsItem;
 import xin.xiaoa.englishlearn.fragment_lexicon.MyExpandableListViewAdapter;
@@ -36,7 +38,7 @@ public class LexiconFragment extends Fragment {
     Context context;
     Button butAllWord;
     Button butNewWord;
-    Button butSpecialWord;
+//    Button butSpecialWord;
     List<GroupsItem> groupsLists;
     ResultSet publicRsList, privateRsList;
 
@@ -61,6 +63,9 @@ public class LexiconFragment extends Fragment {
 
     };
 
+    public Handler getHandler(){
+        return handler;
+    }
     @SuppressLint("ValidFragment")
     public LexiconFragment(Context cont) {
         context = cont;
@@ -100,11 +105,11 @@ public class LexiconFragment extends Fragment {
 
         butAllWord = view.findViewById(R.id.lexicon_all_word);
         butNewWord = view.findViewById(R.id.lexicon_new_word);
-        butSpecialWord = view.findViewById(R.id.lexicon_special_word);
+      ///  butSpecialWord = view.findViewById(R.id.lexicon_special_word);
 
         butAllWord.setOnClickListener(new MyClickListener());
         butNewWord.setOnClickListener(new MyClickListener());
-        butSpecialWord.setOnClickListener(new MyClickListener());
+      ///  butSpecialWord.setOnClickListener(new MyClickListener());
 
         return view;
     }
@@ -113,7 +118,7 @@ public class LexiconFragment extends Fragment {
 
         @Override
         public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-            showToast(groupsLists.get(groupPosition).getChilds().get(childPosition).getContent());
+            //showToast(groupsLists.get(groupPosition).getChilds().get(childPosition).getContent());
             if(groupPosition==0) editMyLexicon("first",groupsLists.get(groupPosition).getChilds().get(childPosition).getContent() ,
                     groupsLists.get(groupPosition).getChilds().get(childPosition).getName() );
             else editMyLexicon("other",groupsLists.get(groupPosition).getChilds().get(childPosition).getContent() ,
@@ -121,7 +126,7 @@ public class LexiconFragment extends Fragment {
             return false;
         }
     }
-    void editMyLexicon(String strCmd, String key, String title){
+   public void editMyLexicon(String strCmd, String key, String title){
         ELApplication.setLexiconFragmentHandle(handler);
         Intent intent = new Intent();
         intent.setClass(context, A2WActivity.class);
@@ -130,26 +135,20 @@ public class LexiconFragment extends Fragment {
         bundle.putString("cmd", strCmd);
         bundle.putString("key", key);
         bundle.putString("title", title);
-//        switch (strCmd){
-//            case "add":{
-//
-//                }break;
-//            case "first":{
-//                bundle.putString("cmd", strCmd);
-//                }break;
-//            case "other":{
-//                bundle.putString("cmd", strCmd);
-//                }break;
-//        }
         intent.putExtras(bundle);
         startActivity(intent);
     }
-    void funAllWord(){}
-    void funNewWord(){}
+    void funAllWord(){
+//        Intent intent = new Intent();
+//        intent.setClass(context, SearchActivity.class);
+//        context.startActivity(intent);
+        new SearchWord(context);
+    }
     void funA2W(){
         editMyLexicon("add","","我的词库");
     }
-    void funSpecialWord(){
+    void funNewWord(){ //生词本点击事件
+        editMyLexicon("new_word","个人生词本" ,"个人生词本" );
     }
 
     class MyClickListener implements View.OnClickListener {
@@ -160,8 +159,8 @@ public class LexiconFragment extends Fragment {
                     funAllWord();break;
                 case R.id.lexicon_new_word:
                     funNewWord();break;
-                case R.id.lexicon_special_word:
-                    funSpecialWord();break;
+//                case R.id.lexicon_special_word:
+//                    funSpecialWord();break;
                 case R.id.expandable_listview_item_group_button:
                     funA2W();break;
             }
@@ -175,7 +174,7 @@ public class LexiconFragment extends Fragment {
                     if (!ELApplication.getSql().sqlStation())
                         System.out.println("数据库连接连接已经断开。");
                     //已经获取结果unit
-                    privateRsList = ELApplication.getSql().sel("SELECT DISTINCT * FROM a2w_article "); //查询
+                    privateRsList = ELApplication.getSql().sel("SELECT DISTINCT * FROM "+ELApplication.getPrefix()+"a2w_article "); //查询
 
                 } catch (Exception e) {
                     System.out.println("unit结果集获取失败问题" + e);

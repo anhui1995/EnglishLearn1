@@ -37,11 +37,12 @@ public class SQLiteService {
         /* 创建表 */
         // db = dbHelper.getWritableDatabase();	//调用SQLiteHelper.OnCreate()
 
-        System.err.println("建数据库");
+        System.err.println("建数据库"+ELApplication.getRootPath());
         File file = new File(ELApplication.getRootPath()+"/word.db");
 
         try{
             if(!file.exists()){
+                System.out.println("新建数据库");
                 file.createNewFile();
             }
         } catch (Exception e) {
@@ -64,6 +65,13 @@ public class SQLiteService {
                  + " english VARCHAR(30) NOT NULL,"
                  + " memoryDatabase INTEGER NOT NULL,"
                  + " nextdate date NOT NULL)";
+        db.execSQL(sql);
+
+        // 建立本地生词本
+        sql = "CREATE TABLE if not exists unknown_words"
+                + "(id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + " english VARCHAR(30) NOT NULL,"
+                + " learned INTEGER NOT NULL)";
         db.execSQL(sql);
 
         // 建立本地单词数据库

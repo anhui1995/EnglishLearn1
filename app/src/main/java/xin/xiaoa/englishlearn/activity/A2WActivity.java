@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,6 +29,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import android.os.Handler;
+import android.widget.Toast;
 
 import xin.xiaoa.englishlearn.R;
 import xin.xiaoa.englishlearn.article2words.A2WListAdapter;
@@ -46,7 +49,7 @@ public class A2WActivity extends AppCompatActivity {
     Button butSave;
     Button butView;
     Button butBack;
-    TextView a2wFragTitle;
+    EditText a2wFragTitle;
     Article2Words article2Words;
     ListView wordsViewFragmentListView;
     A2WListAdapter a2WListAdapter;
@@ -64,9 +67,9 @@ public class A2WActivity extends AppCompatActivity {
     EditArticleFragment editArticleFragment;
     WordsViewFragment wordsViewFragment;
     ResultSet rsListWords, rsListArticle;
-
+    Cursor cursorNewWordList;
     int pageFlog=0;
-
+    String strToast="";
 
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
@@ -81,7 +84,18 @@ public class A2WActivity extends AppCompatActivity {
                     break;
                  case 3:
                      lexiconFragmentHandle.sendEmptyMessage(3);
-                     thisActivity.finish();
+                     buttonBack();
+                    break;
+                case 4:
+                    Toast mToast =Toast.makeText(context, null, Toast.LENGTH_SHORT);
+                    mToast.setText(strToast);
+                    mToast.show();
+                    break;
+                case 5:
+                    openNewWordsRsList();
+                    break;
+                case 6:
+                    insertArticle(article,title,a2wListviewList);
                     break;
                 default:
                     break;
@@ -126,10 +140,17 @@ public class A2WActivity extends AppCompatActivity {
             viewPagerInit(false);
             getWords();
         }
+        else if("new_word".equals(strCmd)) {
+            viewInit(false);
+            a2wFragTitle.setFocusable(false);
+            viewPagerInit(false);
+            getWordsNewWord();
+        }
         else {
             viewInit(true);
             viewPagerInit(true);
-            a2wFragTitle.clearFocus();
+            a2wFragTitle.setText("我的词库");
+
         }
 
         //a2wFragTitle.setFocusable(FOCUSABLE_AUTO);
@@ -139,6 +160,10 @@ public class A2WActivity extends AppCompatActivity {
 
     }
 
+    void showToast(String sss) {
+        strToast = sss;
+        handler.sendEmptyMessage(4);
+    }
 
     void getArticle(){
         new Thread() {
@@ -147,7 +172,7 @@ public class A2WActivity extends AppCompatActivity {
                     if (!ELApplication.getSql().sqlStation())
                         System.out.println("数据库连接连接已经断开。");
                     //已经获取结果unit
-                    rsListArticle = ELApplication.getSql().sel("SELECT  * FROM a2w_article where id='"+strKey+"' "); //查询
+                    rsListArticle = ELApplication.getSql().sel("SELECT  * FROM "+ELApplication.getPrefix()+"a2w_article where id='"+strKey+"' "); //查询
 
                 } catch (Exception e) {
                     System.out.println("unit结果集获取失败问题" + e);
@@ -168,10 +193,13 @@ public class A2WActivity extends AppCompatActivity {
         } catch (Exception e) {
             System.out.println("结果集解析问题问题" + e);
         }
+        butView.setText("预览");
+        pageFlog = 1;
+        buttonGet();
+        viewPager.setCurrentItem(1);
     }
 
     void getWords(){
-        String str = "SELECT word.*,adminword.flog FROM word,adminword where adminword.word=word.english  AND adminword.flog='ok' ORDER BY RAND()";
         new Thread() {
             public void run() {
                 try { //链接数据库 if(name.equals("admin")){
@@ -186,6 +214,42 @@ public class A2WActivity extends AppCompatActivity {
                 handler.sendEmptyMessage(2);
             }
         }.start();
+    }
+
+    void getWordsNewWord(){
+        new Thread() {
+            public void run() {
+                try {
+                    SQLiteDatabase db = ELApplication.getDb();
+                    // todayDate = "2019-04-15";
+                    cursorNewWordList = db.rawQuery("select * from unknown_words  ORDER BY RANDOM()", new String[]{});
+
+                    System.out.println("结果集获取完毕  getUnitWordList()");
+                } catch (Exception e) {
+                    System.out.println("结果集获取失败问题" + e);
+                }
+
+                handler.sendEmptyMessage(5);
+            }
+        }.start();
+    }
+
+    void openNewWordsRsList(){
+        a2wListviewList = new ArrayList<>();
+        try {
+            while (cursorNewWordList.moveToNext()) {
+                String key = cursorNewWordList.getString(cursorNewWordList.getColumnIndex("english"));
+                a2wListviewList.add(new A2wListviewItem(key,1));
+                wordsViewFragmentListView = wordsViewFragment.getListView();
+                wordsViewFragment.setA2wListviewList(a2wListviewList);
+                a2WListAdapter = new A2WListAdapter(this,a2wListviewList);
+                wordsViewFragmentListView.setAdapter(a2WListAdapter);
+            }
+            cursorNewWordList.close();
+        } catch (Exception e) {
+            System.out.println("结果集解析问题问题" + e);
+        }
+
     }
 
     void openWordsRsList(){
@@ -210,8 +274,8 @@ public class A2WActivity extends AppCompatActivity {
     void viewPagerInit(boolean isPrivate){
 
         viewPagerList = new ArrayList<>();
-        wordsViewFragment = new WordsViewFragment(context);
-        editArticleFragment = new EditArticleFragment(context);
+        wordsViewFragment = new WordsViewFragment(context,strCmd);
+        editArticleFragment = new EditArticleFragment(context,strCmd);
         if(isPrivate) viewPagerList.add(editArticleFragment);
         viewPagerList.add(wordsViewFragment);
 
@@ -223,10 +287,12 @@ public class A2WActivity extends AppCompatActivity {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     void viewInit(boolean click){
 
         a2wFragTitle = findViewById(R.id.a2w_f_title);
-
+        //a2wFragTitle.setFocusable(FOCUSABLE_AUTO);
+        //a2wFragTitle.clearFocus();
         butSave = findViewById(R.id.a2w_but_save);
         butBack = findViewById(R.id.a2w_but_back);
         butView = findViewById(R.id.a2w_but_view);
@@ -256,13 +322,6 @@ public class A2WActivity extends AppCompatActivity {
         wordsViewFragmentListView.setAdapter(a2WListAdapter);
     }
 
-    void buttonAdd(){
-        System.out.println("插入文章");
-        if(a2wListviewList == null) return;
-
-        insertArticle(article,title,a2wListviewList);
-    }
-
     void buttonBack(){
         System.out.println("buttonBack()");
         this.finish();
@@ -284,10 +343,15 @@ public class A2WActivity extends AppCompatActivity {
     }
     void buttonSave(){
         System.out.println("buttonSave()");
-        if(isSave) return;
+        if(isSave) {
+            showToast("词库已存在");
+            return;
+        }
         buttonGet();
         title = a2wFragTitle.getText().toString();
-        insertArticle(article,title,a2wListviewList);
+        if("add".equals(strCmd)) insertArticle(article,title,a2wListviewList);
+        else if("first".equals(strCmd)) deleteForResave();
+        showToast("词库已保存");
         isSave = true;
     }
     void insertArticle(final String article, final String title, final List<A2wListviewItem> a2wListviewList){
@@ -299,10 +363,10 @@ public class A2WActivity extends AppCompatActivity {
                     if (!ELApplication.getSql().sqlStation())
                         System.out.println("数据库连接连接已经断开。");
 
-                    int res = ELApplication.getSql().up("INSERT INTO  a2w_article (article,title) VALUES ('"+article.replace("'","''")+"','"+title.replace("'","''")+"' )");
+                    int res = ELApplication.getSql().up("INSERT INTO  "+ELApplication.getPrefix()+"a2w_article (article,title) VALUES ('"+article.replace("'","''")+"','"+title.replace("'","''")+"' )");
 
                     String cmdStr = "";
-                    StringBuilder sb = new StringBuilder("INSERT INTO  a2w_words (article_id,word) VALUES ");
+                    StringBuilder sb = new StringBuilder("INSERT INTO  "+ELApplication.getPrefix()+"a2w_words (article_id,word) VALUES ");
 
                     for(int i=0;i<a2wListviewList.size()-1;i++){
                         sb.append(" ('").append(res).append("','").append(a2wListviewList.get(i).getName().replace("'", "''")).append("' ), ");
@@ -311,8 +375,7 @@ public class A2WActivity extends AppCompatActivity {
 
                     ELApplication.getSql().up(sb.toString());
                     System.out.println("文章更新成功");
-                    lexiconFragmentHandle.sendEmptyMessage(3);
-
+                    handler.sendEmptyMessage(3);
                 } catch(Exception e) { System.out.println("结果集获取失败问题"+e); }
 
             }
@@ -326,17 +389,32 @@ public class A2WActivity extends AppCompatActivity {
                     if (!ELApplication.getSql().sqlStation())
                         System.out.println("数据库连接连接已经断开。");
                     //已经获取结果unit
-                    ELApplication.getSql().delete("DELETE FROM a2w_article where id='"+strKey+"' "); //查询
-                    ELApplication.getSql().delete("DELETE FROM a2w_words where article_id='"+strKey+"' "); //查询
+                    ELApplication.getSql().delete("DELETE FROM "+ELApplication.getPrefix()+"a2w_article where id='"+strKey+"' "); //查询
+                    ELApplication.getSql().delete("DELETE FROM "+ELApplication.getPrefix()+"a2w_words where article_id='"+strKey+"' "); //查询
                 } catch (Exception e) {
                     System.out.println("unit结果集获取失败问题" + e);
                 }
-                handler.sendEmptyMessage(2);
+                handler.sendEmptyMessage(3);
             }
         }.start();
     }
 
-
+    void deleteForResave(){
+        new Thread() {
+            public void run() {
+                try { //链接数据库 if(name.equals("admin")){
+                    if (!ELApplication.getSql().sqlStation())
+                        System.out.println("数据库连接连接已经断开。");
+                    //已经获取结果unit
+                    ELApplication.getSql().delete("DELETE FROM "+ELApplication.getPrefix()+"a2w_article where id='"+strKey+"' "); //查询
+                    ELApplication.getSql().delete("DELETE FROM "+ELApplication.getPrefix()+"a2w_words where article_id='"+strKey+"' "); //查询
+                } catch (Exception e) {
+                    System.out.println("unit结果集获取失败问题" + e);
+                }
+                handler.sendEmptyMessage(6);
+            }
+        }.start();
+    }
     void showDialog(){
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(context);

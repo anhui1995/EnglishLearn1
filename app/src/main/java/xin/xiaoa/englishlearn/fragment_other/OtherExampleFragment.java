@@ -22,25 +22,13 @@ import xin.xiaoa.englishlearn.example_sentence.ExampleSentenceItem;
 import xin.xiaoa.englishlearn.example_sentence.ExampleSentenceLv;
 
 public class OtherExampleFragment extends Fragment {
-    String text1 = "In 1972 Thomas Kuhn hurled an ashtray at Errol Morris. Already renowned" +
-            " for&nbsp;<em><b>The Structure of Scientific Revolutions</b></em>, published a decade earlier, " +
-            "Kuhn was at the Institute for Advanced Study in Princeton, and Morris was his graduate " +
-            "student in history and philosophy of science.";
-    String text2 = "about information is maybe ok no are you sure ?";
-    String text3 = "<span style=\"caret-color:#000000\"><span style=\"font-style:normal\"><span style=\"font-variant-caps:normal\">" +
-            "<span style=\"font-weight:normal\"><span style=\"letter-spacing:normal\"><span style=\"orphans:auto\">" +
-            "<span style=\"text-transform:none\"><span style=\"white-space:normal\"><span style=\"widows:auto\">" +
-            "<span style=\"word-spacing:0px\"><span style=\"-webkit-text-size-adjust:auto\">" +
-            "In 1972 Thomas Kuhn hurled an ashtray at Errol Morris. Already renowned for&nbsp;" +
-            "<em>The Structure of Scientific Revolutions</em>, published a decade earlier, Kuhn was at the Institute for" +
-            " Advanced Study in Princeton, and Morris was his graduate student in history and philosophy of science." +
-            "</span></span></span></span></span></span></span></span></span></span></span>";
+
     View view;
     Context context;
     ListView listView;
     Spinner spinner;
     List<OtherSpinnerItem> fromList = new ArrayList<>();
-    @SuppressLint("ValidFragment")  //EGListViewAdapter
+    @SuppressLint("ValidFragment")
     public OtherExampleFragment(Context cont) {
         context = cont;
     }

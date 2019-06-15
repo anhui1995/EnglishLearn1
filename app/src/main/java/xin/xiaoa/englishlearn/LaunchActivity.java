@@ -11,6 +11,7 @@ import android.view.Window;
 import java.io.File;
 import java.sql.ResultSet;
 
+import xin.xiaoa.englishlearn.activity.LoginActivity;
 import xin.xiaoa.englishlearn.service.ELApplication;
 import xin.xiaoa.englishlearn.service.MySqlServer;
 import xin.xiaoa.englishlearn.service.SQLiteService;
@@ -63,10 +64,11 @@ public class LaunchActivity extends Activity {
 
     private void init() {
 
-        initSQLite();
-        //getUnitWordList();
         makeRootDirectory(ELApplication.getRootPath());
         makeRootDirectory(ELApplication.getWordPath());
+        initSQLite();
+        //getUnitWordList();
+
           doLogin();
 
 
@@ -109,8 +111,7 @@ public class LaunchActivity extends Activity {
 
         if (ELApplication.getSql().sqlStation()) {//登录成功
             System.out.println("登录成功");
-            //getUnitWordList();
-            Intent intent2 = new Intent(mContext, BottomNavigationBarActivity.class);
+            Intent intent2 = new Intent(mContext, LoginActivity.class);
             startActivity(intent2);
         } else {
             System.out.println("登录失败");
@@ -123,7 +124,7 @@ public class LaunchActivity extends Activity {
     //生成文件夹
     void makeRootDirectory(String filePath) {
         File file;
-
+        System.out.println("新建文件夹:"+ filePath);
         try {
             file = new File(filePath);
             if (!file.exists()) {//判断指定的路径或者指定的目录文件是否已经存在。

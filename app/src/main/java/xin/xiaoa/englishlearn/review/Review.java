@@ -2,12 +2,15 @@ package xin.xiaoa.englishlearn.review;
 
 
 import android.annotation.SuppressLint;
+import android.database.sqlite.SQLiteDatabase;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import xin.xiaoa.englishlearn.service.ELApplication;
 
 public class Review {
     private List<ReviewListItem> reviewLists ;
@@ -35,9 +38,11 @@ public class Review {
     }
     //计算下一次复习时间
     private String calculateNextDate(int memory,int selectValue){
-        memory-=1;
-        if(memory>10 ) memory = 10;
 
+        rightNow = Calendar.getInstance();
+        System.out.println("calculateNextDate-------------------------------------"+memory);
+        if(memory>10 ) memory = 10;
+        if(memory<0 ) memory = 0;
         switch (selectValue){
             case 3:  //认识
                 rightNow.add(Calendar.DAY_OF_YEAR,memeryAdd[memory]); break;
@@ -68,8 +73,13 @@ public class Review {
 
 
     private void write2DB(ReviewListItem reviewListItem){
-
-
+        System.out.println(":"+reviewListItem.getEnglish()+"--"+reviewListItem.getMemoryDatabase()+"--=-"+reviewListItem.getNextdate());
+//        SQLiteDatabase db = ELApplication.getDb();
+//        String sql = "UPDATE review set " +
+//                "memoryDatabase = '" + reviewListItem.getMemoryDatabase() +"', "+
+//                "nextdate = '" + reviewListItem.getNextdate() +"' "+
+//                "WHERE id = '" + reviewListItem.getId() +"' ";
+//        db.execSQL(sql);
     }
     public void setMemory(int selectValue){
         ReviewListItem reviewListItem = reviewLists.get(0);
@@ -116,6 +126,7 @@ public class Review {
                     reviewListItem.setMemoryDatabase(calculateNextMemery(reviewListItem.getMemoryDatabase(),1));
                     reviewListItem.setMemoryLocal(reviewListItem.getMemoryLocal()-3);
                 }
+
                 reviewListItem.setMemoryLocal(reviewListItem.getMemoryLocal()-3);
                 if(reviewListItem.getMemoryLocal()<0) reviewListItem.setMemoryLocal(0);
 

@@ -21,6 +21,7 @@ import xin.xiaoa.englishlearn.fragment_other.OtherArticleFragment;
 import xin.xiaoa.englishlearn.fragment_other.OtherExampleFragment;
 import xin.xiaoa.englishlearn.fragment_other.OtherTranslateFragment;
 import xin.xiaoa.englishlearn.fragment_other.OtherViewPagerAdapter;
+import xin.xiaoa.englishlearn.service.ELApplication;
 
 
 /**
@@ -50,6 +51,7 @@ public class OtherFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_other, container, false);
+        ELApplication.setOtherFragment(this);
         buttonInit();
         viewPagerInit();
 
@@ -78,15 +80,15 @@ public class OtherFragment extends Fragment {
         else butArticle.setBackgroundResource(R.drawable.other_button_background_noselect);
 
     }
-    void funButTranslate(){
+    public void funButTranslate(){
         viewPager.setCurrentItem(0);
         setButtonBackground(0);
     }
-    void funButExample(){
+    public void funButExample(){
         viewPager.setCurrentItem(1);
         setButtonBackground(1);
     }
-    void funButArticle(){
+    public void funButArticle(){
         viewPager.setCurrentItem(2);
         setButtonBackground(2);
     }

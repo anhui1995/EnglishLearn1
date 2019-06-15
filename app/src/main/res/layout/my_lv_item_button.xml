@@ -4,13 +4,14 @@
     android:layout_height="wrap_content">
 
 
-    <Button
+    <TextView
         android:id="@+id/my_lv_item_but"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:background="@drawable/my_lv_item_bg"
-        android:text="设置"
+        android:gravity="center"
+        android:text="退出登录"
         android:textSize="16sp" />
 </RelativeLayout>

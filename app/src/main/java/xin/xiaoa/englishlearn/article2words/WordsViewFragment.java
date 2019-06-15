@@ -21,10 +21,11 @@ public class WordsViewFragment extends Fragment {
     Context context;
     View view;
     ListView listView;
-
+    String strCmd;
     @SuppressLint("ValidFragment")
-    public WordsViewFragment(Context con) {
+    public WordsViewFragment(Context con,String strCmd) {
         context = con;
+        this.strCmd = strCmd;
     }
 
     public WordsViewFragment() {}
@@ -49,7 +50,9 @@ public class WordsViewFragment extends Fragment {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             String word = a2wListviewList.get(position).getName();
-            new ClickWordDialog(context,word);
+//            if("new_word".equals(strCmd)) new ClickWordDialog(context,word,strCmd);
+//            else new ClickWordDialog(context,word);
+            new ClickWordDialog(context,word,strCmd);
         }
     }
 

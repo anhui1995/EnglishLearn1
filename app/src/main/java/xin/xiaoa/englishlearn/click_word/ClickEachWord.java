@@ -56,10 +56,6 @@ public class ClickEachWord {
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             start = end + 1;
         }
-        //改变选中文本的高亮颜色
- //       textView.setHighlightColor(Color.GREEN);
-       // textView.setHintTextColor(Color.GREEN);
-       // textView.setBackgroundColor(Color.GRAY);
     }
     private ClickableSpan getClickableSpan(){
         return new ClickableSpan() {

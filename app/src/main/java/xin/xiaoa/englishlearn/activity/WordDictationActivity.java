@@ -2,6 +2,7 @@ package xin.xiaoa.englishlearn.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xin.xiaoa.englishlearn.R;
+import xin.xiaoa.englishlearn.click_word.SearchWord;
 import xin.xiaoa.englishlearn.worddictation.WordDictationListAdapter;
 import xin.xiaoa.englishlearn.worddictation.WordDictationListAdapter.myTextListener;
 import xin.xiaoa.englishlearn.worddictation.WordDictationListAdapter.myItemListener;
@@ -43,7 +45,6 @@ public class WordDictationActivity extends Activity {
 
     private ListView listView;
     private Spinner spinner;
-    //private TextView text;
     private Button mAdd;
     private Button mTest;
     private Button mSearch;
@@ -58,6 +59,7 @@ public class WordDictationActivity extends Activity {
     String show;
     public MediaPlayer mMediaPlayer = null;
 
+    Context context;
     private List<WordDictationListItem> Lists = new ArrayList<>();
     private List<UnitListItem> unitList = new ArrayList<>();
     @SuppressLint("HandlerLeak")
@@ -92,6 +94,7 @@ public class WordDictationActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.worddictationlist);
+        context = this;
         mp3path = ELApplication.getWordPath();
         mMediaPlayer = new MediaPlayer();
         initView();
@@ -103,8 +106,6 @@ public class WordDictationActivity extends Activity {
         listView = findViewById(R.id.unitlistListView1);
         listView.setOnItemClickListener(new itemClickListener());
         listView.setOnItemLongClickListener(new itemClickLongListener());
-
-
     }
 
     private void initView() {
@@ -447,9 +448,10 @@ public class WordDictationActivity extends Activity {
 
     void buttonSearch() {
         System.out.println("buttonSearch");
-        Intent intent = new Intent();
-        intent.setClass(WordDictationActivity.this, SearchActivity.class);
-        startActivity(intent);
+        new SearchWord(context);
+//        Intent intent = new Intent();
+//        intent.setClass(WordDictationActivity.this, SearchActivity.class);
+//        startActivity(intent);
     }
 
 
@@ -523,7 +525,6 @@ public class WordDictationActivity extends Activity {
                 tv.setBackgroundColor(0xffa9a9a9);
                 tv.setTextColor(0xffA9A9A9);
             }
-
         }
     }
 
@@ -549,5 +550,6 @@ public class WordDictationActivity extends Activity {
 
 
     }
+
 
 }

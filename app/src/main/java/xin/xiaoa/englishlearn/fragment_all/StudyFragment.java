@@ -21,7 +21,10 @@ import android.widget.Toast;
 
 
 import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import xin.xiaoa.englishlearn.R;
@@ -32,10 +35,12 @@ import xin.xiaoa.englishlearn.example_sentence.ExampleSentenceAdapter;
 import xin.xiaoa.englishlearn.example_sentence.ExampleSentenceItem;
 import xin.xiaoa.englishlearn.fragment_study.StudyMeanListAdapter;
 import xin.xiaoa.englishlearn.fragment_study.StudyWordMeaningItem;
+import xin.xiaoa.englishlearn.fragment_study.WordDictation;
 import xin.xiaoa.englishlearn.review.Review;
 import xin.xiaoa.englishlearn.review.ReviewListItem;
 import xin.xiaoa.englishlearn.service.ELApplication;
 import xin.xiaoa.englishlearn.service.PlayEnglish;
+import xin.xiaoa.englishlearn.service.PreferencesUtils;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
@@ -57,6 +62,7 @@ public class StudyFragment extends Fragment {
 
     ListView lvExample;
     ListView lvMean;
+    ListView lvDictation;
 
     TextView textviewEngling;
     TextView textviewYinbiao;
@@ -64,7 +70,7 @@ public class StudyFragment extends Fragment {
     LinearLayout layoutFayin;
     RelativeLayout layoutMean;
     LinearLayout layoutCover;
-
+    LinearLayout layoutDictation;
     String strShow;
     Context context;
     ResultSet rsList;
@@ -75,14 +81,18 @@ public class StudyFragment extends Fragment {
     ResultSet sqlResultSet;
     String playEnglishName;
     String playFayinStr;
-
+    String todayDate;
+    WordDictation wordDictation;
     int index=0;
     private List<StudyAllWordItem> Lists = new ArrayList<>();
     private List<StudyWordMeaningItem> studyWordMeaningItemLists;
     private List<ReviewListItem> reviewLists;
+   // private List<ReviewListItem> reviewLists;
+
     Review review;
     Cursor cursorWordDetail;
     Cursor cursorWordList;
+    Cursor cursorDictationList;
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         public void handleMessage(android.os.Message msg) {
@@ -102,6 +112,12 @@ public class StudyFragment extends Fragment {
                     break;
                 case 5:
                     setWordDetail();
+                    break;
+                 case 6:
+                     setDictationList();
+                    break;
+                case 7:
+                    setModeReview();
                     break;
                 default:
                     break;
@@ -214,11 +230,26 @@ public class StudyFragment extends Fragment {
             }
         }.start();
     }
+    void reviewEnd(){
+        setModeDictation();
+        String pwd=PreferencesUtils.getSharePreStr(context, "reviewEnd");//密码
+        if(todayDate.equals(pwd)){
+            PreferencesUtils.putSharePre(context, "reviewEnd", todayDate);
+            ELApplication.getUserMassge().setAll(ELApplication.getUserMassge().getAll()+1);
+
+            ELApplication.getMyFragmentHandler().sendEmptyMessage(2);
+
+
+        }
+
+    }
     @SuppressLint("SetTextI18n")
     void setNext(){
         String english = review.getNext();
         if("".equals(english)){
             System.out.println("今日单词复习完毕。");
+            reviewEnd();
+
             return;
         }
         layoutCover.setVisibility(VISIBLE);
@@ -238,6 +269,22 @@ public class StudyFragment extends Fragment {
         mToast.show();
     }
 
+    void setModeReview(){
+        getUnitWordList();
+        getDictationList();
+        layoutFayin.setVisibility(VISIBLE);
+        layoutMean.setVisibility(INVISIBLE);
+        layoutCover.setVisibility(VISIBLE);
+        layoutDictation.setVisibility(INVISIBLE);
+    }
+
+    void setModeDictation(){
+        layoutFayin.setVisibility(INVISIBLE);
+        layoutMean.setVisibility(INVISIBLE);
+        layoutCover.setVisibility(INVISIBLE);
+        layoutDictation.setVisibility(VISIBLE);
+    }
+
     void setUnitWordList() {
         System.out.println("开始解析结果集  openRs()");
         reviewLists = new ArrayList<>();
@@ -248,7 +295,6 @@ public class StudyFragment extends Fragment {
                     cursorWordList.getString(cursorWordList.getColumnIndex("english")),
                     cursorWordList.getInt(cursorWordList.getColumnIndex("memoryDatabase")),
                     cursorWordList.getString(cursorWordList.getColumnIndex("nextdate")) ));
-            System.out.println("日期："+cursorWordList.getString(cursorWordList.getColumnIndex("nextdate")));
         }
         review.setReviewLists(reviewLists);
         cursorWordList.close();
@@ -256,11 +302,15 @@ public class StudyFragment extends Fragment {
         handler.sendEmptyMessage(2);
     }
 
+
     @SuppressLint("CutPasteId")
     void initView(){
 
         lvExample = view.findViewById(R.id.study_lv_example);
         lvMean = view.findViewById(R.id.study_lv_mean);
+        lvDictation = view.findViewById(R.id.study_Layout_dictation_lv_dic);
+
+        wordDictation = new WordDictation(context,lvDictation);
 
         textviewEngling = view.findViewById(R.id.study_textview_english);
         textviewYinbiao = view.findViewById(R.id.study_textview_fayin);
@@ -268,38 +318,66 @@ public class StudyFragment extends Fragment {
         layoutFayin = view.findViewById(R.id.study_Layout_fayin);
         layoutMean = view.findViewById(R.id.study_layout_mean);
         layoutCover = view.findViewById(R.id.study_layout_cover);
+        layoutDictation = view.findViewById(R.id.study_Layout_dictation);
 
         layoutMean.setVisibility(INVISIBLE);
-
+        layoutDictation.setVisibility(INVISIBLE);
         layoutFayin.setOnClickListener(new MyClickListener());
         layoutCover.setOnClickListener(new MyClickListener());
 
         butKnow = view.findViewById(R.id.study_button_know);
         butVague = view.findViewById(R.id.study_button_vague);
         butForget = view.findViewById(R.id.study_button_forget);
-        butYoudao = view.findViewById(R.id.study_button_youdao);
-        butBaidu = view.findViewById(R.id.study_button_baidu);
-        butJinshan = view.findViewById(R.id.study_button_jinshan);
-        butGoogle = view.findViewById(R.id.study_button_google);
+
+//        butYoudao = view.findViewById(R.id.study_button_youdao);
+//        butBaidu = view.findViewById(R.id.study_button_baidu);
+//        butJinshan = view.findViewById(R.id.study_button_jinshan);
+//        butGoogle = view.findViewById(R.id.study_button_google);
 
         butKnow.setOnClickListener(new MyClickListener());
         butVague.setOnClickListener(new MyClickListener());
         butForget.setOnClickListener(new MyClickListener());
-        butYoudao.setOnClickListener(new MyClickListener());
-        butBaidu.setOnClickListener(new MyClickListener());
-        butJinshan.setOnClickListener(new MyClickListener());
-        butGoogle.setOnClickListener(new MyClickListener());
+
+//        butYoudao.setOnClickListener(new MyClickListener());
+//        butBaidu.setOnClickListener(new MyClickListener());
+//        butJinshan.setOnClickListener(new MyClickListener());
+//        butGoogle.setOnClickListener(new MyClickListener());
     }
 
+    void getDictationList() {
+        new Thread() {
+            public void run() {
+                try {
+                    SQLiteDatabase db = ELApplication.getDb();
+ //                   cursorDictationList = db.rawQuery("select * from review where memoryDatabase < ? ORDER BY RANDOM()", new String[]{"3"});
+ //                   cursorDictationList = db.rawQuery("select * from word where english=?", new String[]{english});
+                    cursorDictationList = db.rawQuery("select word.* from review,word  where review.english=word.english ", new String[]{});
+                    System.out.println("结果集获取完毕  getUnitWordList()");
+                 } catch (Exception e) {
+                    System.out.println("结果集获取失败问题" + e);
+                }
+                handler.sendEmptyMessage(6);
+            }
+        }.start();
+    }
+    void setDictationList() {
+        System.out.println("开始解析结果集  openRs()"); // wordDictation  cursorDictationList
+        wordDictation.setWordDetail(cursorDictationList);
+        cursorWordList.close();
+        System.out.println("结果集解析完毕");
+
+    }
 
     void getUnitWordList() {
         new Thread() {
             public void run() {
                 try {
                     SQLiteDatabase db = ELApplication.getDb();
-                    cursorWordList = db.rawQuery("select * from review ORDER BY RANDOM()", new String[]{});
+                    //todayDate = "2019-06-15";
+                    cursorWordList = db.rawQuery("select * from review where nextdate <= ? ORDER BY RANDOM()", new String[]{todayDate});
+//                     cursorWordList = db.rawQuery("select * from review  ORDER BY RANDOM()", new String[]{});
                     System.out.println("结果集获取完毕  getUnitWordList()");
-                 } catch (Exception e) {
+                } catch (Exception e) {
                     System.out.println("结果集获取失败问题" + e);
                 }
 //                while (cursorWordList.moveToNext()) {
@@ -322,6 +400,7 @@ public class StudyFragment extends Fragment {
         }.start();
     }
 
+
     @SuppressLint("ValidFragment")
     public StudyFragment(Context con) {
         context = con;
@@ -332,8 +411,11 @@ public class StudyFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
        // test();
+        @SuppressLint("SimpleDateFormat")
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+        todayDate = dateFormat.format(calendar.getTime());
         review = new Review();
         view = inflater.inflate(R.layout.fragment_study, container, false);
         try{
@@ -343,6 +425,8 @@ public class StudyFragment extends Fragment {
         catch (Exception e){
             System.out.println("onCreateView__"+e);
         }
+        getDictationList();
+        ELApplication.setStudyFragmentHandler(handler);
         return view;
     }
     void test() {
@@ -409,7 +493,7 @@ public class StudyFragment extends Fragment {
 
     }
     void butFunBaidu(){
-        System.out.println("butFunBaidu");
+        //System.out.println("butFunBaidu__"+);
     }
     void butFunJinshan(){
         showToast("butFunJinshan");
@@ -443,18 +527,18 @@ public class StudyFragment extends Fragment {
             switch (arg0.getId()) {
                 case R.id.study_button_know:
                     butFunKnow();break;
-                case R.id.study_button_baidu:
-                    butFunBaidu();break;
+//                case R.id.study_button_baidu:
+//                    butFunBaidu();break;
                 case R.id.study_button_forget:
                     butFunForget();break;
                 case R.id.study_button_vague:
                     butFunVague();break;
-                case R.id.study_button_jinshan:
-                    butFunJinshan();break;
-                case R.id.study_button_google:
-                    butFunGoogle();break;
-                case R.id.study_button_youdao:
-                    butFunYoudao();break;
+//                case R.id.study_button_jinshan:
+//                    butFunJinshan();break;
+//                case R.id.study_button_google:
+//                    butFunGoogle();break;
+//                case R.id.study_button_youdao:
+//                    butFunYoudao();break;
                 case R.id.study_Layout_fayin:
                     layFunFayin();break;
                 case R.id.study_layout_cover:

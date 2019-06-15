@@ -92,7 +92,6 @@ public class OtherTranslateFragment extends Fragment {
                 } catch (Exception e) {
                     System.out.println("句子翻译问题" + e);
                 }
-
             }
         }.start();
     }

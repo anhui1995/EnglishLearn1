@@ -61,6 +61,25 @@ public class MySqlServer {
         return -1;
     }
 
+
+
+    public int creatTable(String cmd) {
+        System.out.println(cmd);
+        if(sqlStationCheck()) System.out.println("数据库连接正常，定义");
+        try {
+            sql = con.createStatement();
+            if (sql.isClosed())
+                System.out.println("连接已经关闭了，不能插入)");
+            else {
+                sql.execute(cmd);
+            }
+        } catch (SQLException e) {
+            System.out.println("sql 更新错误" + e);
+        }
+        return -1;
+    }
+
+
     public int delete(String cmd) {
         System.out.println(cmd);
         if(sqlStationCheck()) System.out.println("数据库连接正常，定义");

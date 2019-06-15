@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -49,6 +50,9 @@ public class BottomNavigationBarActivity extends AppCompatActivity implements Bo
 
     }
 
+    public List<Fragment> getMList(){
+        return mList;
+    }
     //初始化ViewPager
     private void initViewPager() {
         mList = new ArrayList<>();
@@ -128,19 +132,18 @@ public class BottomNavigationBarActivity extends AppCompatActivity implements Bo
 //                .setInactiveIcon(ContextCompat.getDrawable(this,R.mipmap.ic_launcher));//非选中的图片
     }
     boolean BottomNavigationItemLongClick(int all,int now){
-        //System.out.println("底部导航栏长按监听,all:"+all+"now:"+now);
 
         switch (now){
             case 1 : {
-                BottomNavigationDialog bottomNavigationDialog = new BottomNavigationDialog(this);
+                BottomNavigationDialog bottomNavigationDialog = new BottomNavigationDialog(this,mList,bottomNavigationBar, viewPager);
                 bottomNavigationDialog.show(now,R.layout.bottom_navigation_dialog_study);
             }break;
             case 2 : {
-                BottomNavigationDialog bottomNavigationDialog = new BottomNavigationDialog(this);
+                BottomNavigationDialog bottomNavigationDialog = new BottomNavigationDialog(this,mList,bottomNavigationBar, viewPager);
                 bottomNavigationDialog.show(now,R.layout.bottom_navigation_dialog_lexicon);
             }break;
             case 3 : {
-                BottomNavigationDialog bottomNavigationDialog = new BottomNavigationDialog(this);
+                BottomNavigationDialog bottomNavigationDialog = new BottomNavigationDialog(this,mList,bottomNavigationBar, viewPager);
                 bottomNavigationDialog.show(now,R.layout.bottom_navigation_dialog_other);
             }break;
             default: return false;
@@ -251,4 +254,19 @@ public class BottomNavigationBarActivity extends AppCompatActivity implements Bo
     public void onPageScrollStateChanged(int state) {
         System.out.println("onPageScrollStateChanged");
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        // TODO: Implement this method
+
+        if (keyCode == KeyEvent.KEYCODE_BACK)
+        {
+            moveTaskToBack(true);
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
+
 }
